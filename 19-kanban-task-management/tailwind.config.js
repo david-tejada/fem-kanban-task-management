@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class",
   theme: {
     fontSize: {
       "body-md": ["0.75rem", { lineHeight: "1.25", fontWeight: "bold" }],

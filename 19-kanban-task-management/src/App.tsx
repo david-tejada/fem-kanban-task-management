@@ -1,3 +1,12 @@
+import useDarkMode from "./lib/hooks/useDarkMode";
+import Header from "./ui/Header";
+
 export default function App() {
-  return <h1 className="text-red-400">Hello world</h1>;
+  useDarkMode();
+  return (
+    <>
+      <Header />
+      <main></main>
+    </>
+  );
 }
