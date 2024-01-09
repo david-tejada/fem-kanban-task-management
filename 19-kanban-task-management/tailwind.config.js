@@ -37,6 +37,11 @@ export default {
       white: "hsl(0deg, 0%, 100%)",
       black: "hsl(0deg, 0%, 0%)",
       current: "currentColor",
+      "blue-start": "hsl(219deg, 63%, 95%)",
+      "blue-stop": "hsl(218deg, 66%, 95%, 50%)",
+    },
+    boxShadow: {
+      task: "0px 4px 6px 0px rgba(54, 78, 126, 0.10)",
     },
   },
   plugins: [],
