@@ -7,7 +7,6 @@ export default function useDarkMode() {
     "dark-mode",
     mediaQueryList.matches,
   );
-  document.documentElement.classList.toggle("dark", mediaQueryList.matches);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
@@ -20,7 +19,7 @@ export default function useDarkMode() {
   }, [mediaQueryList, setDarkMode]);
 
   return {
-    dark: darkMode,
+    darkMode: darkMode,
     toggleDarkMode: () => {
       setDarkMode(!darkMode);
     },
