@@ -18,6 +18,16 @@ export default function useDarkMode() {
     return () => mediaQueryList.removeEventListener("change", handleChange);
   }, [mediaQueryList, setDarkMode]);
 
+  // Synchronize dark mode when there are multiple tabs open.
+  useEffect(() => {
+    window.addEventListener("storage", (e) => {
+      if (e.key === "dark-mode" && e.newValue) {
+        const parseValue = JSON.parse(e.newValue) as boolean;
+        setDarkMode(parseValue);
+      }
+    });
+  }, [setDarkMode]);
+
   return {
     darkMode: darkMode,
     toggleDarkMode: () => {
