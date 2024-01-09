@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useLocalStorage from "./lib/hooks/useLocalStorage";
 import Header from "./ui/Header";
 import Navigation from "./ui/Navigation";
@@ -9,6 +9,12 @@ export default function App() {
     true,
   );
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setIsMobileOpen(false);
+    });
+  }, []);
 
   return (
     <>
