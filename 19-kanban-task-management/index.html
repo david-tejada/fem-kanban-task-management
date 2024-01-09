@@ -5,6 +5,14 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React + TS</title>
+    <script>
+      const lsDarkMode = localStorage.getItem("dark-mode");
+      const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (lsDarkMode === "true" || (lsDarkMode === null && prefersDark)) {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
   </head>
   <body class="min-h-screen bg-blue-200 dark:bg-neutral-800">
     <div id="root"></div>
