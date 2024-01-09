@@ -21,15 +21,15 @@ export default function Navigation({
     <>
       <div
         className={`${
-          isMobileOpen ? "block" : "hidden"
-        } fixed inset-0 z-10 bg-black opacity-50 sm:hidden`}
+          isMobileOpen ? "visible opacity-50" : "invisible opacity-0"
+        } fixed inset-0 z-10 bg-black transition-opacity sm:hidden`}
         onClick={() => setIsMobileOpen(false)}
       ></div>
 
       <div
         className={cn(
-          "fixed left-1/2 top-20 z-20 hidden w-64 -translate-x-1/2 flex-col rounded-lg bg-white transition-transform sm:absolute sm:inset-0 sm:right-auto sm:top-[4.6875rem] sm:flex sm:w-60 sm:-translate-x-full sm:rounded-none sm:border-r sm:border-blue-200 dark:border-neutral-600 dark:bg-neutral-700",
-          isMobileOpen && "flex",
+          "invisible fixed -top-full left-1/2 z-20 flex w-64 -translate-x-1/2 flex-col rounded-lg bg-white transition-all sm:absolute sm:inset-0 sm:right-auto sm:top-[4.6875rem] sm:flex sm:w-60 sm:-translate-x-full sm:rounded-none sm:border-r sm:border-blue-200 dark:border-neutral-600 dark:bg-neutral-700",
+          isMobileOpen && "visible top-20",
           isSidebarOpen && "sm:translate-x-0",
         )}
       >

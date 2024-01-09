@@ -16,7 +16,7 @@ export default function Header({
     : "/icon-chevron-down.svg";
 
   return (
-    <header className="relative z-20 flex border-blue-200 bg-white sm:border-b dark:border-neutral-600 dark:bg-neutral-700">
+    <header className="relative z-30 flex border-blue-200 bg-white sm:border-b dark:border-neutral-600 dark:bg-neutral-700">
       <div
         className={cn(
           "flex items-center border-blue-200 px-4 py-5 sm:border-r dark:border-neutral-600",
