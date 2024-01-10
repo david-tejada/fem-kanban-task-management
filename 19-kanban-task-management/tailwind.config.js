@@ -1,3 +1,5 @@
+import defaultTheme from "tailwindcss/defaultTheme";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -13,6 +15,9 @@ export default {
       "heading-md": ["0.9375rem", { lineHeight: "1.2667", fontWeight: "bold" }],
       "heading-lg": ["1.125rem", { lineHeight: "1.2778", fontWeight: "bold" }],
       "heading-xl": ["1.5rem", { lineHeight: "1.25", fontWeight: "bold" }],
+    },
+    fontFamily: {
+      sans: ["Plus Jakarta Sans", ...defaultTheme.fontFamily.sans],
     },
     colors: {
       neutral: {
