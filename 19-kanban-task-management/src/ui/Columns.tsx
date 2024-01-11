@@ -1,4 +1,4 @@
-import { IBoard, IColumn, ITask } from "../App";
+import { IBoard, IColumn, ITask } from "../lib/types";
 
 export default function Columns({ board }: { board: IBoard }) {
   return (
