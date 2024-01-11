@@ -1,15 +1,18 @@
+import { useState } from "react";
 import { cn } from "../lib/utils";
 
 type HeaderProps = {
   isSidebarOpen: boolean;
   isMobileOpen: boolean;
   setIsMobileOpen(value: boolean): void;
+  openModalEditBoard(): void;
 };
 
 export default function Header({
   isSidebarOpen,
   isMobileOpen,
   setIsMobileOpen,
+  openModalEditBoard,
 }: HeaderProps) {
   const chevronImageUrl = isMobileOpen
     ? "/icon-chevron-up.svg"
@@ -37,7 +40,7 @@ export default function Header({
           </button>
         </div>
         <ButtonNewTask />
-        <ButtonMore />
+        <ButtonMore openModalEditBoard={openModalEditBoard} />
       </div>
     </header>
   );
@@ -72,10 +75,45 @@ function ButtonNewTask() {
   );
 }
 
-function ButtonMore() {
+function ButtonMore({ openModalEditBoard }: { openModalEditBoard(): void }) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <button type="button">
-      <img src="icon-vertical-ellipsis.svg" alt="" />
-    </button>
+    <div className="relative">
+      <button type="button" onClick={() => setIsOpen(!isOpen)}>
+        <img src="icon-vertical-ellipsis.svg" alt="" />
+      </button>
+      <ul
+        className={cn(
+          "invisible absolute -bottom-28 -right-2 grid w-48 gap-4  rounded-md bg-white p-4 text-body-lg opacity-0 transition-all",
+          isOpen && "visible opacity-100",
+        )}
+      >
+        <li>
+          <button
+            type="button"
+            className="text-neutral-400"
+            onClick={() => {
+              setIsOpen(false);
+              openModalEditBoard();
+            }}
+          >
+            Edit Board
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            className="text-red-600"
+            onClick={() => {
+              setIsOpen(false);
+              // TODO: Open delete board modal
+            }}
+          >
+            Delete Board
+          </button>
+        </li>
+      </ul>
+    </div>
   );
 }

@@ -13,6 +13,8 @@ export default function App() {
     "boards",
     defaultBoards,
   );
+  const [modalAddBoard, setModalAddBoard] = useState(false);
+  const [modalEditBoard, setModalEditBoard] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorage(
     "sidebar-open",
     true,
@@ -31,6 +33,7 @@ export default function App() {
         isSidebarOpen={isSidebarOpen}
         isMobileOpen={isMobileOpen}
         setIsMobileOpen={setIsMobileOpen}
+        openModalEditBoard={() => setModalEditBoard(true)}
       />
       <Navigation
         boards={boards}
@@ -38,6 +41,7 @@ export default function App() {
         setIsMobileOpen={setIsMobileOpen}
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
+        openModalAddBoard={() => setModalAddBoard(true)}
       />
 
       <main
@@ -48,6 +52,25 @@ export default function App() {
       >
         <Columns board={boards[0]} />
       </main>
+      <BoardModal
+        board={boards[0]}
+        onSave={(board) => {
+          setBoards(boards.map((b) => (b.id === board.id ? board : b)));
+        }}
+        isOpen={modalEditBoard}
+        onCancel={() => {
+          setModalEditBoard(false);
+        }}
+      />
+      <BoardModal
+        onSave={(board) => {
+          setBoards([...boards, board]);
+        }}
+        isOpen={modalAddBoard}
+        onCancel={() => {
+          setModalAddBoard(false);
+        }}
+      />
     </>
   );
 }

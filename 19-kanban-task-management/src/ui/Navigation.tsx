@@ -8,6 +8,7 @@ type NavigationProps = {
   isSidebarOpen: boolean;
   setIsMobileOpen(value: boolean): void;
   setIsSidebarOpen(value: boolean): void;
+  openModalAddBoard(): void;
 };
 
 export default function Navigation({
@@ -16,6 +17,7 @@ export default function Navigation({
   isSidebarOpen,
   setIsMobileOpen,
   setIsSidebarOpen,
+  openModalAddBoard,
 }: NavigationProps) {
   return (
     <>
@@ -67,6 +69,7 @@ export default function Navigation({
         <button
           type="button"
           className="mr-6 flex items-center gap-2 py-3 pl-6 text-purple-500"
+          onClick={openModalAddBoard}
         >
           <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
             <path
