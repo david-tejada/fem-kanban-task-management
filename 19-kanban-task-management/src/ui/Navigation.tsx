@@ -2,10 +2,8 @@ import { IBoard } from "../lib/types";
 import { cn } from "../lib/utils";
 import ThemeSwitcher from "./ThemeSwitcher";
 
-// Temporarily hardcoded
-const boards = ["Platform Launch", "Marketing Plan", "Roadmap"];
-
 type NavigationProps = {
+  boards: IBoard[];
   isMobileOpen: boolean;
   isSidebarOpen: boolean;
   setIsMobileOpen(value: boolean): void;
@@ -13,6 +11,7 @@ type NavigationProps = {
 };
 
 export default function Navigation({
+  boards,
   isMobileOpen,
   isSidebarOpen,
   setIsMobileOpen,
@@ -35,16 +34,16 @@ export default function Navigation({
         )}
       >
         <h2 className="px-6 pb-5 pt-4 text-center text-heading-sm uppercase text-neutral-400">
-          All Boards (3)
+          All Boards ({boards.length})
         </h2>
         <nav>
           <ul>
-            {boards.map((b, i) => (
-              <li key={i}>
+            {boards.map((board) => (
+              <li key={board.id}>
                 <a
                   href="#"
                   className={`mr-6 flex items-center gap-2 rounded-r-full py-3 pl-6 ${
-                    b === "Platform Launch"
+                    board.name === "Platform Launch"
                       ? "bg-purple-500 text-white"
                       : "text-neutral-400"
                   }`}
@@ -59,7 +58,7 @@ export default function Navigation({
                       fill="currentColor"
                     />
                   </svg>
-                  {b}
+                  {board.name}
                 </a>
               </li>
             ))}
