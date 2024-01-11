@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { Input, Label } from "./FormComponents";
-import { IBoard } from "../lib/types";
+import { IBoard, SetModalState } from "../lib/types";
 
 type BoardModalProps = {
   board?: IBoard;
   isOpen: boolean;
-  onCancel(): void;
+  setModalState: SetModalState;
   onSave(value: IBoard): void;
 };
 
 export function BoardModal({
   board,
   isOpen,
-  onCancel,
+  setModalState,
   onSave,
 }: BoardModalProps) {
   const [boardName, setBoardName] = useState(board?.name ?? "");
@@ -57,9 +57,7 @@ export function BoardModal({
 
   return (
     <dialog
-      onClose={() => {
-        onCancel();
-      }}
+      onClose={() => setModalState(null)}
       ref={dialogRef}
       className="backdrop:bg-translucent w-[30rem] max-w-lg rounded-md p-8"
     >

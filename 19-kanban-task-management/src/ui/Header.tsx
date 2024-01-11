@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { cn } from "../lib/utils";
+import { SetModalState } from "../lib/types";
 
 type HeaderProps = {
   isSidebarOpen: boolean;
   isMobileOpen: boolean;
   setIsMobileOpen(value: boolean): void;
-  openModalEditBoard(): void;
+  setModalState: SetModalState;
 };
 
 export default function Header({
   isSidebarOpen,
   isMobileOpen,
   setIsMobileOpen,
-  openModalEditBoard,
+  setModalState,
 }: HeaderProps) {
   const chevronImageUrl = isMobileOpen
     ? "/icon-chevron-up.svg"
@@ -40,7 +41,7 @@ export default function Header({
           </button>
         </div>
         <ButtonNewTask />
-        <ButtonMore openModalEditBoard={openModalEditBoard} />
+        <ButtonMore setModalState={setModalState} />
       </div>
     </header>
   );
@@ -75,7 +76,7 @@ function ButtonNewTask() {
   );
 }
 
-function ButtonMore({ openModalEditBoard }: { openModalEditBoard(): void }) {
+function ButtonMore({ setModalState }: { setModalState: SetModalState }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -95,7 +96,7 @@ function ButtonMore({ openModalEditBoard }: { openModalEditBoard(): void }) {
             className="text-neutral-400"
             onClick={() => {
               setIsOpen(false);
-              openModalEditBoard();
+              setModalState("editBoard");
             }}
           >
             Edit Board

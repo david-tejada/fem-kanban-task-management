@@ -23,3 +23,7 @@ export interface ISubtask {
   title: string;
   isCompleted: boolean;
 }
+
+export type ModalState = null | "addBoard" | "editBoard";
+
+export type SetModalState = (value: ModalState) => void;

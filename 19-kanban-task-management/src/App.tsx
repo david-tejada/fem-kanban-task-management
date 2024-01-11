@@ -6,15 +6,14 @@ import { cn } from "./lib/utils";
 import defaultBoards from "./lib/data";
 import Columns from "./ui/Columns";
 import { BoardModal } from "./ui/BoardModal";
-import { IBoard } from "./lib/types";
+import { IBoard, ModalState } from "./lib/types";
 
 export default function App() {
   const [boards, setBoards] = useLocalStorage<IBoard[]>(
     "boards",
     defaultBoards,
   );
-  const [modalAddBoard, setModalAddBoard] = useState(false);
-  const [modalEditBoard, setModalEditBoard] = useState(false);
+  const [modalState, setModalState] = useState<ModalState>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorage(
     "sidebar-open",
     true,
@@ -33,7 +32,7 @@ export default function App() {
         isSidebarOpen={isSidebarOpen}
         isMobileOpen={isMobileOpen}
         setIsMobileOpen={setIsMobileOpen}
-        openModalEditBoard={() => setModalEditBoard(true)}
+        setModalState={(value) => setModalState(value)}
       />
       <Navigation
         boards={boards}
@@ -41,7 +40,7 @@ export default function App() {
         setIsMobileOpen={setIsMobileOpen}
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
-        openModalAddBoard={() => setModalAddBoard(true)}
+        setModalState={(value) => setModalState(value)}
       />
 
       <main
@@ -57,19 +56,15 @@ export default function App() {
         onSave={(board) => {
           setBoards(boards.map((b) => (b.id === board.id ? board : b)));
         }}
-        isOpen={modalEditBoard}
-        onCancel={() => {
-          setModalEditBoard(false);
-        }}
+        isOpen={modalState === "editBoard"}
+        setModalState={(value) => setModalState(value)}
       />
       <BoardModal
         onSave={(board) => {
           setBoards([...boards, board]);
         }}
-        isOpen={modalAddBoard}
-        onCancel={() => {
-          setModalAddBoard(false);
-        }}
+        isOpen={modalState === "addBoard"}
+        setModalState={(value) => setModalState(value)}
       />
     </>
   );

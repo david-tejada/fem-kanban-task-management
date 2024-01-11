@@ -1,4 +1,4 @@
-import { IBoard } from "../lib/types";
+import { IBoard, SetModalState } from "../lib/types";
 import { cn } from "../lib/utils";
 import ThemeSwitcher from "./ThemeSwitcher";
 
@@ -8,7 +8,7 @@ type NavigationProps = {
   isSidebarOpen: boolean;
   setIsMobileOpen(value: boolean): void;
   setIsSidebarOpen(value: boolean): void;
-  openModalAddBoard(): void;
+  setModalState: SetModalState;
 };
 
 export default function Navigation({
@@ -17,7 +17,7 @@ export default function Navigation({
   isSidebarOpen,
   setIsMobileOpen,
   setIsSidebarOpen,
-  openModalAddBoard,
+  setModalState,
 }: NavigationProps) {
   return (
     <>
@@ -69,7 +69,7 @@ export default function Navigation({
         <button
           type="button"
           className="mr-6 flex items-center gap-2 py-3 pl-6 text-purple-500"
-          onClick={openModalAddBoard}
+          onClick={() => setModalState("addBoard")}
         >
           <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
             <path
