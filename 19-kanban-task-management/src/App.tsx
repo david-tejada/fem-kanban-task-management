@@ -5,30 +5,7 @@ import Navigation from "./ui/Navigation";
 import { cn } from "./lib/utils";
 import data from "./lib/data.json";
 import Columns from "./ui/Columns";
-
-export interface IBoard {
-  name: string;
-  columns: IColumn[];
-}
-
-export interface IColumn {
-  name: string;
-  tasks: (ITask | ITask)[];
-}
-
-export interface ITask {
-  title: string;
-  description: string;
-  status: string;
-  subtasks: ISubtask[];
-}
-
-export interface ISubtask {
-  title: string;
-  isCompleted: boolean;
-}
-
-const boards: IBoard[] = data.boards;
+import { IBoard } from "./lib/types";
 
 export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorage(

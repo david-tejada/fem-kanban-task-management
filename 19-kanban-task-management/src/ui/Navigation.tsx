@@ -1,3 +1,4 @@
+import { IBoard } from "../lib/types";
 import { cn } from "../lib/utils";
 import ThemeSwitcher from "./ThemeSwitcher";
 
