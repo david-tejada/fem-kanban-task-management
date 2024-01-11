@@ -21,7 +21,10 @@ export default {
     },
     colors: {
       neutral: {
-        400: "hsl(216deg, 15%, 57%)",
+        400: {
+          DEFAULT: "hsl(216deg, 15%, 57%)",
+          25: "hsl(216deg, 15%, 57%, 25%)",
+        },
         600: "hsl(236deg, 11%, 27%)",
         700: "hsl(235deg, 12%, 19%)",
         800: "hsl(235deg, 16%, 15%)",
@@ -33,7 +36,10 @@ export default {
       },
       purple: {
         300: "hsl(243deg, 100%, 82%)",
-        500: "hsl(242deg, 48%, 58%)",
+        500: {
+          DEFAULT: "hsl(242deg, 48%, 58%)",
+          10: "hsl(242deg, 48%, 58%, 10%)",
+        },
       },
       red: {
         300: "hsl(0deg, 100%, 80%)",
@@ -41,6 +47,7 @@ export default {
       },
       white: "hsl(0deg, 0%, 100%)",
       black: "hsl(0deg, 0%, 0%)",
+      translucent: "hsl(0deg, 0%, 0%, 50%)",
       current: "currentColor",
       "blue-start": "hsl(219deg, 63%, 95%)",
       "blue-stop": "hsl(218deg, 66%, 95%, 50%)",
