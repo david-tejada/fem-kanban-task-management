@@ -52,9 +52,11 @@ export default function App() {
         <Columns board={boards[0]} />
       </main>
       <BoardModal
+        key={boards[0].id}
         board={boards[0]}
         onSave={(board) => {
           setBoards(boards.map((b) => (b.id === board.id ? board : b)));
+          setModalState(null);
         }}
         isOpen={modalState === "editBoard"}
         setModalState={(value) => setModalState(value)}
@@ -62,6 +64,7 @@ export default function App() {
       <BoardModal
         onSave={(board) => {
           setBoards([...boards, board]);
+          setModalState(null);
         }}
         isOpen={modalState === "addBoard"}
         setModalState={(value) => setModalState(value)}

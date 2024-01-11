@@ -20,15 +20,10 @@ export function BoardModal({
 
   const title = board ? "Edit Board" : "Add Board";
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     isOpen ? dialogRef.current?.showModal() : dialogRef.current?.close();
   }, [isOpen]);
-
-  function newBoard(name: string) {
-    return { id: crypto.randomUUID(), name, columns: [] };
-  }
 
   function newColumn(name: string) {
     return { id: crypto.randomUUID(), name, tasks: [] };
@@ -50,11 +45,6 @@ export function BoardModal({
     setColumns(columns.filter((column) => column.id !== id));
   }
 
-  function reset() {
-    setBoardName("");
-    setColumns([]);
-  }
-
   return (
     <dialog
       onClose={() => setModalState(null)}
@@ -64,14 +54,17 @@ export function BoardModal({
       <h2 className="text-heading-lg text-neutral-900">{title}</h2>
       <form
         className="mt-6 grid gap-6"
-        ref={formRef}
-        onSubmit={() => {
+        onSubmit={(event) => {
+          event.preventDefault();
           onSave({
-            ...(board ?? newBoard(boardName)),
+            id: board?.id ?? crypto.randomUUID(),
+            name: boardName,
             columns,
           });
-          reset();
-          dialogRef.current?.close();
+          if (!board) {
+            setBoardName("");
+            setColumns([]);
+          }
         }}
       >
         <Label caption="Board Name">
