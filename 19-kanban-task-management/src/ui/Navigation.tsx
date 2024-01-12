@@ -1,6 +1,7 @@
-import { IBoard, SetModalState } from "../lib/types";
+import { IBoard } from "../lib/types";
 import { cn } from "../lib/utils";
 import ThemeSwitcher from "./ThemeSwitcher";
+import { useModalContext } from "../lib/hooks/useModalContext";
 
 type NavigationProps = {
   boards: IBoard[];
@@ -8,7 +9,6 @@ type NavigationProps = {
   isSidebarOpen: boolean;
   setIsMobileOpen(value: boolean): void;
   setIsSidebarOpen(value: boolean): void;
-  setModalState: SetModalState;
 };
 
 export default function Navigation({
@@ -17,8 +17,9 @@ export default function Navigation({
   isSidebarOpen,
   setIsMobileOpen,
   setIsSidebarOpen,
-  setModalState,
 }: NavigationProps) {
+  const { setModalState } = useModalContext();
+
   return (
     <>
       <div

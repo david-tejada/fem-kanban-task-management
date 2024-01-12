@@ -25,5 +25,3 @@ export interface ISubtask {
 }
 
 export type ModalState = null | "addBoard" | "editBoard";
-
-export type SetModalState = (value: ModalState) => void;

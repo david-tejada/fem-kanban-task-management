@@ -1,19 +1,17 @@
 import { useState } from "react";
 import { cn } from "../lib/utils";
-import { SetModalState } from "../lib/types";
+import { useModalContext } from "../lib/hooks/useModalContext";
 
 type HeaderProps = {
   isSidebarOpen: boolean;
   isMobileOpen: boolean;
   setIsMobileOpen(value: boolean): void;
-  setModalState: SetModalState;
 };
 
 export default function Header({
   isSidebarOpen,
   isMobileOpen,
   setIsMobileOpen,
-  setModalState,
 }: HeaderProps) {
   const chevronImageUrl = isMobileOpen
     ? "/icon-chevron-up.svg"
@@ -41,7 +39,7 @@ export default function Header({
           </button>
         </div>
         <ButtonNewTask />
-        <ButtonMore setModalState={setModalState} />
+        <ButtonMore />
       </div>
     </header>
   );
@@ -76,8 +74,9 @@ function ButtonNewTask() {
   );
 }
 
-function ButtonMore({ setModalState }: { setModalState: SetModalState }) {
+function ButtonMore() {
   const [isOpen, setIsOpen] = useState(false);
+  const { setModalState } = useModalContext();
 
   return (
     <div className="relative">

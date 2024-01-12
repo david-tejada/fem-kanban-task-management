@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
-import useLocalStorage from "./lib/hooks/useLocalStorage";
-import Header from "./ui/Header";
-import Navigation from "./ui/Navigation";
-import { cn } from "./lib/utils";
 import defaultBoards from "./lib/data";
+import useLocalStorage from "./lib/hooks/useLocalStorage";
+import { IBoard } from "./lib/types";
+import { cn } from "./lib/utils";
 import Columns from "./ui/Columns";
-import { IBoard, ModalState } from "./lib/types";
-import Modal from "./ui/Modal";
-import { BoardForm } from "./ui/forms/BoardForm";
+import Header from "./ui/Header";
+import ModalContextProvider from "./ui/ModalContextProvider";
+import Navigation from "./ui/Navigation";
+import { BoardModal } from "./ui/forms/BoardModal";
 
 export default function App() {
   const [boards, setBoards] = useLocalStorage<IBoard[]>(
     "boards",
     defaultBoards,
   );
-  const [modalState, setModalState] = useState<ModalState>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorage(
     "sidebar-open",
     true,
@@ -28,12 +27,11 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <ModalContextProvider>
       <Header
         isSidebarOpen={isSidebarOpen}
         isMobileOpen={isMobileOpen}
         setIsMobileOpen={setIsMobileOpen}
-        setModalState={(value) => setModalState(value)}
       />
       <Navigation
         boards={boards}
@@ -41,9 +39,7 @@ export default function App() {
         setIsMobileOpen={setIsMobileOpen}
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
-        setModalState={(value) => setModalState(value)}
       />
-
       <main
         className={cn(
           "grid h-[calc(100vh-4.0625rem)] overflow-auto transition-all sm:h-[calc(100vh-4.75rem)]",
@@ -52,30 +48,18 @@ export default function App() {
       >
         <Columns board={boards[0]} />
       </main>
-      <Modal
-        isOpen={modalState === "editBoard"}
-        setModalState={(value) => setModalState(value)}
-      >
-        <BoardForm
-          key={boards[0].id}
-          board={boards[0]}
-          onSave={(board) => {
-            setBoards(boards.map((b) => (b.id === board.id ? board : b)));
-            setModalState(null);
-          }}
-        />
-      </Modal>
-      <Modal
-        isOpen={modalState === "addBoard"}
-        setModalState={(value) => setModalState(value)}
-      >
-        <BoardForm
-          onSave={(board) => {
-            setBoards([...boards, board]);
-            setModalState(null);
-          }}
-        />
-      </Modal>
-    </>
+      <BoardModal
+        key={boards[0].id}
+        board={boards[0]}
+        onSave={(board) => {
+          setBoards(boards.map((b) => (b.id === board.id ? board : b)));
+        }}
+      />
+      <BoardModal
+        onSave={(board) => {
+          setBoards([...boards, board]);
+        }}
+      />
+    </ModalContextProvider>
   );
 }
