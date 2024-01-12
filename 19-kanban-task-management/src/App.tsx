@@ -5,8 +5,9 @@ import Navigation from "./ui/Navigation";
 import { cn } from "./lib/utils";
 import defaultBoards from "./lib/data";
 import Columns from "./ui/Columns";
-import { BoardModal } from "./ui/BoardModal";
 import { IBoard, ModalState } from "./lib/types";
+import Modal from "./ui/Modal";
+import { BoardForm } from "./ui/forms/BoardForm";
 
 export default function App() {
   const [boards, setBoards] = useLocalStorage<IBoard[]>(
@@ -51,24 +52,30 @@ export default function App() {
       >
         <Columns board={boards[0]} />
       </main>
-      <BoardModal
-        key={boards[0].id}
-        board={boards[0]}
-        onSave={(board) => {
-          setBoards(boards.map((b) => (b.id === board.id ? board : b)));
-          setModalState(null);
-        }}
+      <Modal
         isOpen={modalState === "editBoard"}
         setModalState={(value) => setModalState(value)}
-      />
-      <BoardModal
-        onSave={(board) => {
-          setBoards([...boards, board]);
-          setModalState(null);
-        }}
+      >
+        <BoardForm
+          key={boards[0].id}
+          board={boards[0]}
+          onSave={(board) => {
+            setBoards(boards.map((b) => (b.id === board.id ? board : b)));
+            setModalState(null);
+          }}
+        />
+      </Modal>
+      <Modal
         isOpen={modalState === "addBoard"}
         setModalState={(value) => setModalState(value)}
-      />
+      >
+        <BoardForm
+          onSave={(board) => {
+            setBoards([...boards, board]);
+            setModalState(null);
+          }}
+        />
+      </Modal>
     </>
   );
 }
