@@ -13,25 +13,30 @@ export function Label({
   );
 }
 
-export function Input({
-  value,
-  placeholder,
-  autofocus,
-  onChange,
-}: {
+type InputProps = {
+  name: string;
   value?: string;
   placeholder?: string;
   autofocus?: boolean;
   onChange(value: string): void;
-}) {
+};
+
+export function Input({
+  name,
+  value,
+  placeholder,
+  autofocus,
+  onChange,
+}: InputProps) {
   return (
     <input
       type="text"
+      name={name}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       autoFocus={autofocus}
-      className="border-neutral-400-25 w-full rounded-[0.25rem] border px-4 py-2 text-body-lg text-neutral-900 placeholder:text-neutral-400"
+      className="w-full rounded-[0.25rem] border border-neutral-400-25 px-4 py-2 text-body-lg text-neutral-900 placeholder:text-neutral-400"
     />
   );
 }

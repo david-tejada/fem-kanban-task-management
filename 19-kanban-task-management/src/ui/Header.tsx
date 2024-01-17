@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { Link, useRouteLoaderData } from "react-router-dom";
+import { IBoard } from "../lib/types";
 import { cn } from "../lib/utils";
-import { useModalContext } from "../lib/hooks/useModalContext";
 
 type HeaderProps = {
   isSidebarOpen: boolean;
@@ -13,6 +14,7 @@ export default function Header({
   isMobileOpen,
   setIsMobileOpen,
 }: HeaderProps) {
+  const { board } = useRouteLoaderData("board") as { board: IBoard };
   const chevronImageUrl = isMobileOpen
     ? "/icon-chevron-up.svg"
     : "/icon-chevron-down.svg";
@@ -29,7 +31,7 @@ export default function Header({
       </div>
       <div className="flex grow items-center gap-4 p-4 pl-0 sm:pl-4">
         <div className="relative flex items-center gap-1 text-heading-lg dark:text-white">
-          <p>Platform Launch</p>
+          <p>{board.name}</p>
           <button
             type="button"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
@@ -39,7 +41,7 @@ export default function Header({
           </button>
         </div>
         <ButtonNewTask />
-        <ButtonMore />
+        <ButtonMore boardId={board.id} />
       </div>
     </header>
   );
@@ -74,14 +76,13 @@ function ButtonNewTask() {
   );
 }
 
-function ButtonMore() {
+function ButtonMore({ boardId }: { boardId: string }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { setModalState } = useModalContext();
 
   return (
     <div className="relative">
       <button type="button" onClick={() => setIsOpen(!isOpen)}>
-        <img src="icon-vertical-ellipsis.svg" alt="" />
+        <img src="/icon-vertical-ellipsis.svg" alt="" />
       </button>
       <ul
         className={cn(
@@ -90,16 +91,15 @@ function ButtonMore() {
         )}
       >
         <li>
-          <button
-            type="button"
+          <Link
+            to={`/boards/${boardId}/edit`}
             className="text-neutral-400"
             onClick={() => {
               setIsOpen(false);
-              setModalState("editBoard");
             }}
           >
             Edit Board
-          </button>
+          </Link>
         </li>
         <li>
           <button

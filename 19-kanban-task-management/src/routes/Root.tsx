@@ -1,19 +1,23 @@
 import { useEffect, useState } from "react";
-import defaultBoards from "./lib/data";
-import useLocalStorage from "./lib/hooks/useLocalStorage";
-import { IBoard } from "./lib/types";
-import { cn } from "./lib/utils";
-import Columns from "./ui/Columns";
-import Header from "./ui/Header";
-import ModalContextProvider from "./ui/ModalContextProvider";
-import Navigation from "./ui/Navigation";
-import { BoardModal } from "./ui/forms/BoardModal";
+import { Outlet, Params, useLoaderData } from "react-router-dom";
+import { getBoard, getBoards } from "../lib/boards";
+import useLocalStorage from "../lib/hooks/useLocalStorage";
+import { IBoard } from "../lib/types";
+import { cn } from "../lib/utils";
+import Header from "../ui/Header";
+import Navigation from "../ui/Navigation";
+import Board from "../ui/Board";
 
-export default function App() {
-  const [boards, setBoards] = useLocalStorage<IBoard[]>(
-    "boards",
-    defaultBoards,
-  );
+async function loader({ params }: { params: Params<"boardId"> }) {
+  const boards = await getBoards();
+  const board = params.boardId ? await getBoard(params.boardId) : undefined;
+  return { boards, board: board };
+}
+
+export default function Root() {
+  const { boards } = useLoaderData() as {
+    boards: IBoard[];
+  };
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorage(
     "sidebar-open",
     true,
@@ -27,7 +31,7 @@ export default function App() {
   }, []);
 
   return (
-    <ModalContextProvider>
+    <>
       <Header
         isSidebarOpen={isSidebarOpen}
         isMobileOpen={isMobileOpen}
@@ -46,20 +50,11 @@ export default function App() {
           isSidebarOpen && "sm:ml-60",
         )}
       >
-        <Columns board={boards[0]} />
+        <Board />
       </main>
-      <BoardModal
-        key={boards[0].id}
-        board={boards[0]}
-        onSave={(board) => {
-          setBoards(boards.map((b) => (b.id === board.id ? board : b)));
-        }}
-      />
-      <BoardModal
-        onSave={(board) => {
-          setBoards([...boards, board]);
-        }}
-      />
-    </ModalContextProvider>
+      <Outlet />
+    </>
   );
 }
+
+Root.loader = loader;

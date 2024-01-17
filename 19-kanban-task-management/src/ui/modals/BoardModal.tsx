@@ -1,20 +1,12 @@
 import { useState } from "react";
-import { IBoard } from "../../lib/types";
-import { Input, Label } from "./FormComponents";
-import { useModalContext } from "../../lib/hooks/useModalContext";
-import ModalBase from "../ModalBase";
+import { Form } from "react-router-dom";
+import { IBoard, IColumn } from "../../lib/types";
+import { Input, Label } from "../forms/FormComponents";
+import ModalBase from "./ModalBase";
 
-type BoardFormProps = {
-  board?: IBoard;
-  onSave(newBoard: IBoard): void;
-};
-
-export function BoardModal({ board, onSave }: BoardFormProps) {
+export default function BoardModal({ board }: { board?: IBoard }) {
   const [boardName, setBoardName] = useState(board?.name ?? "");
-  const [columns, setColumns] = useState(board?.columns ?? []);
-  const { setModalState } = useModalContext();
-
-  const title = board ? "Edit Board" : "Add Board";
+  const [columns, setColumns] = useState<IColumn[]>(board?.columns ?? []);
 
   function addColumn() {
     setColumns([...columns, { id: crypto.randomUUID(), name: "", tasks: [] }]);
@@ -33,26 +25,12 @@ export function BoardModal({ board, onSave }: BoardFormProps) {
   }
 
   return (
-    <ModalBase type={board ? "editBoard" : "addBoard"}>
-      <form
-        className="mt-6 grid gap-6"
-        onSubmit={(event) => {
-          event.preventDefault();
-          onSave({
-            id: board?.id ?? crypto.randomUUID(),
-            name: boardName,
-            columns,
-          });
-          setModalState(null);
-          if (!board) {
-            setBoardName("");
-            setColumns([]);
-          }
-        }}
-      >
-        <h2 className="text-heading-lg text-neutral-900">{title}</h2>
+    <ModalBase>
+      <Form method="post" className="mt-6 grid gap-6">
+        <h2 className="text-heading-lg text-neutral-900">Edit Board</h2>
         <Label caption="Board Name">
           <Input
+            name="name"
             placeholder="e.g. Web Design"
             value={boardName}
             onChange={(value) => {
@@ -65,6 +43,7 @@ export function BoardModal({ board, onSave }: BoardFormProps) {
             {columns.map((column, i) => (
               <li key={column.id} className="flex items-center gap-4">
                 <Input
+                  name={`column:${column.id}`}
                   autofocus={column.name === "" && i === columns.length - 1}
                   value={column.name}
                   onChange={(value) => {
@@ -99,7 +78,7 @@ export function BoardModal({ board, onSave }: BoardFormProps) {
         >
           Save changes
         </button>
-      </form>
+      </Form>
     </ModalBase>
   );
 }
