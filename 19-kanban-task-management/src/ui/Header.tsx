@@ -67,7 +67,7 @@ function ButtonNewTask() {
       type="button"
       className="ml-auto items-center rounded-full bg-purple-500 px-[1.125rem] py-[0.625rem] text-heading-md text-white sm:px-6 sm:py-3"
     >
-      <img src="icon-add-task-mobile.svg" alt="" className="sm:hidden" />
+      <img src="/icon-add-task-mobile.svg" alt="" className="sm:hidden" />
       <span className="hidden sm:inline" aria-hidden="true">
         +{" "}
       </span>
