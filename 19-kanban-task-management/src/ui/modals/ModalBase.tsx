@@ -19,7 +19,7 @@ export default function ModalBase({ children }: ModalProps) {
       onClose={() => {
         navigate("..");
       }}
-      className="w-[30rem] max-w-lg rounded-md p-8 backdrop:bg-translucent"
+      className="w-5/6 max-w-lg rounded-md p-8 backdrop:bg-translucent"
     >
       {children}
     </dialog>
