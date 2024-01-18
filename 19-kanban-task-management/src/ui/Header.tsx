@@ -81,7 +81,11 @@ function ButtonMore({ boardId }: { boardId: string }) {
 
   return (
     <div className="relative">
-      <button type="button" onClick={() => setIsOpen(!isOpen)}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="relative before:absolute before:-inset-3"
+      >
         <img src="/icon-vertical-ellipsis.svg" alt="" />
       </button>
       <ul
