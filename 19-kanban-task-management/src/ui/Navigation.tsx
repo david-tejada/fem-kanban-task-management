@@ -45,6 +45,9 @@ export default function Navigation({
               <li key={board.id}>
                 <NavLink
                   to={`/boards/${board.id}`}
+                  onClick={() => {
+                    setIsMobileOpen(false);
+                  }}
                   className={({ isActive }) =>
                     `mr-6 flex items-center gap-2 rounded-r-full py-3 pl-6 ${
                       isActive ? "bg-purple-500 text-white" : "text-neutral-400"
@@ -69,6 +72,9 @@ export default function Navigation({
         </nav>
         <Link
           to={`/boards/${board.id}/new`}
+          onClick={() => {
+            setIsMobileOpen(false);
+          }}
           className="mr-6 flex items-center gap-2 py-3 pl-6 text-purple-500"
         >
           <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
