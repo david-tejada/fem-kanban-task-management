@@ -66,3 +66,9 @@ export async function updateBoard(
 
   return localforage.setItem("boards", boards);
 }
+
+export async function deleteBoard(id: string) {
+  const boards = await getBoards();
+  const updatedBoards = boards.filter((board) => board.id !== id);
+  await localforage.setItem("boards", updatedBoards);
+}

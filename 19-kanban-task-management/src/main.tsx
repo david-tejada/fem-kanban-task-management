@@ -7,9 +7,10 @@ import {
 } from "react-router-dom";
 import "./index.css";
 import { getLastActiveBoard } from "./lib/boards.tsx";
-import Root from "./routes/Root.tsx";
 import CreateBoardModal from "./routes/CreateBoardModal.tsx";
+import DeleteBoardModal from "./routes/DeleteBoardModal.tsx";
 import EditBoardModal from "./routes/EditBoardModal.tsx";
+import Root from "./routes/Root.tsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,11 @@ const router = createBrowserRouter([
             path: "/boards/:boardId/new",
             element: <CreateBoardModal />,
             action: CreateBoardModal.action,
+          },
+          {
+            path: "/boards/:boardId/delete",
+            element: <DeleteBoardModal />,
+            action: DeleteBoardModal.action,
           },
         ],
       },

@@ -102,16 +102,15 @@ function ButtonMore({ boardId }: { boardId: string }) {
           </Link>
         </li>
         <li>
-          <button
-            type="button"
+          <Link
+            to={`/boards/${boardId}/delete`}
             className="text-red-600"
             onClick={() => {
               setIsOpen(false);
-              // TODO: Open delete board modal
             }}
           >
             Delete Board
-          </button>
+          </Link>
         </li>
       </ul>
     </div>
