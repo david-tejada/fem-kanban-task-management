@@ -19,6 +19,18 @@ export default function ModalBase({ children }: ModalProps) {
       onClose={() => {
         navigate("..");
       }}
+      onClick={(event) => {
+        const rect = dialogRef.current!.getBoundingClientRect();
+
+        if (
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom ||
+          event.clientX < rect.left ||
+          event.clientX > rect.right
+        ) {
+          dialogRef.current?.close();
+        }
+      }}
       className="w-5/6 max-w-lg rounded-md p-8 backdrop:bg-translucent"
     >
       {children}
