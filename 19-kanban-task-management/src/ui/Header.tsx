@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useRouteLoaderData } from "react-router-dom";
 import { IBoard } from "../lib/types";
 import { cn } from "../lib/utils";
@@ -78,10 +78,26 @@ function ButtonNewTask() {
 
 function ButtonMore({ boardId }: { boardId: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const ulRef = useRef<HTMLUListElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    window.addEventListener("click", (event) => {
+      if (
+        isOpen &&
+        !(buttonRef.current === event.target) &&
+        event.target instanceof Node &&
+        !ulRef.current?.contains(event.target)
+      ) {
+        setIsOpen(false);
+      }
+    });
+  }, [isOpen]);
 
   return (
     <div className="relative">
       <button
+        ref={buttonRef}
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="relative before:absolute before:-inset-3"
@@ -89,6 +105,7 @@ function ButtonMore({ boardId }: { boardId: string }) {
         <img src="/icon-vertical-ellipsis.svg" alt="" />
       </button>
       <ul
+        ref={ulRef}
         className={cn(
           "invisible absolute -bottom-28 -right-2 grid w-48 gap-4  rounded-md bg-white p-4 text-body-lg opacity-0 transition-all",
           isOpen && "visible opacity-100",
