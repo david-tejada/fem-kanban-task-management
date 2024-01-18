@@ -27,7 +27,9 @@ export default function BoardModal({ board }: { board?: IBoard }) {
   return (
     <ModalBase>
       <Form method="post" className="mt-6 grid gap-6">
-        <h2 className="text-heading-lg text-neutral-900">Edit Board</h2>
+        <h2 className="text-heading-lg text-neutral-900">
+          {board ? "Edit Board" : "Add New Board"}
+        </h2>
         <Label caption="Board Name">
           <Input
             name="name"
