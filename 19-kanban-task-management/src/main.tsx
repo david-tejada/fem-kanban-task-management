@@ -11,6 +11,7 @@ import CreateBoardModal from "./routes/CreateBoardModal.tsx";
 import DeleteBoardModal from "./routes/DeleteBoardModal.tsx";
 import EditBoardModal from "./routes/EditBoardModal.tsx";
 import Root from "./routes/Root.tsx";
+import LastBoardModal from "./routes/LastBoardModal.tsx";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
             path: "/boards/:boardId/delete",
             element: <DeleteBoardModal />,
             action: DeleteBoardModal.action,
+          },
+          {
+            path: "/boards/:boardId/last",
+            element: <LastBoardModal />,
+            action: LastBoardModal.action,
           },
         ],
       },

@@ -11,10 +11,13 @@ import { IBoard } from "../lib/types";
 import ModalBase from "../ui/modals/ModalBase";
 
 async function action({ params }: { params: Params<"boardId"> }) {
-  await deleteBoard(params.boardId!);
-  const boards = await getBoards();
-  console.log(boards);
-  return redirect(`/boards/${boards[0].id}`);
+  try {
+    await deleteBoard(params.boardId!);
+    const boards = await getBoards();
+    return redirect(`/boards/${boards[0].id}`);
+  } catch {
+    return redirect(`/boards/${params.boardId!}/last`);
+  }
 }
 
 export default function DeleteBoardModal() {

@@ -69,6 +69,9 @@ export async function updateBoard(
 
 export async function deleteBoard(id: string) {
   const boards = await getBoards();
+  if (boards.length === 1) {
+    throw new Error("Error trying to delete last board.");
+  }
   const updatedBoards = boards.filter((board) => board.id !== id);
   await localforage.setItem("boards", updatedBoards);
 }
