@@ -4,6 +4,10 @@ import { IBoard, IColumn, ITask } from "../lib/types";
 export default function Board() {
   const { board } = useLoaderData() as { board: IBoard };
 
+  if (board.columns.length === 0) {
+    return <EmptyBoard />;
+  }
+
   return (
     <>
       <div className="mx-4 my-6 flex shrink-0 gap-6">
@@ -17,7 +21,6 @@ export default function Board() {
           + New Column
         </Link>
       </div>
-      {/* <Outlet /> */}
     </>
   );
 }
@@ -45,6 +48,24 @@ function Task({ task }: { task: ITask }) {
         {task.subtasks.filter((s) => s.isCompleted).length} of{" "}
         {task.subtasks.length} subtasks
       </p>
+    </div>
+  );
+}
+
+function EmptyBoard() {
+  return (
+    <div className="grid place-items-center">
+      <div className="mx-4 grid gap-8">
+        <p className="text-center text-heading-lg text-neutral-400">
+          This board is empty. Create a new column to get started.
+        </p>
+        <Link
+          to="newColumn"
+          className="mx-auto max-w-fit items-center rounded-full bg-purple-500 p-4 text-heading-md text-white"
+        >
+          <span aria-hidden="true">+</span> Add New Column
+        </Link>
+      </div>
     </div>
   );
 }
