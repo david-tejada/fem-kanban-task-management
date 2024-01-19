@@ -4,9 +4,27 @@ import { IBoard, IColumn } from "../../lib/types";
 import { Input, Label } from "../forms/FormComponents";
 import ModalBase from "./ModalBase";
 
-export default function BoardModal({ board }: { board?: IBoard }) {
+export default function BoardModal({
+  board,
+  newColumn,
+}: {
+  board?: IBoard;
+  newColumn?: boolean;
+}) {
+  if (newColumn && !board) {
+    throw new Error(
+      "Passing prop `newColumn` without passing prop `board` is not allowed.",
+    );
+  }
+
+  const initialColumns = board
+    ? newColumn
+      ? [...board.columns, { id: crypto.randomUUID(), name: "", tasks: [] }]
+      : board.columns
+    : [];
+
   const [boardName, setBoardName] = useState(board?.name ?? "");
-  const [columns, setColumns] = useState<IColumn[]>(board?.columns ?? []);
+  const [columns, setColumns] = useState<IColumn[]>(initialColumns);
 
   function addColumn() {
     setColumns([...columns, { id: crypto.randomUUID(), name: "", tasks: [] }]);
@@ -25,7 +43,7 @@ export default function BoardModal({ board }: { board?: IBoard }) {
   }
 
   return (
-    <ModalBase>
+    <ModalBase focusLastInput={newColumn}>
       <Form method="post" className="mt-6 grid gap-6">
         <h2 className="text-heading-lg text-neutral-900">
           {board ? "Edit Board" : "Add New Board"}

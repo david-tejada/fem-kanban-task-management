@@ -25,9 +25,9 @@ async function action({
   return redirect("..");
 }
 
-export default function EditBoardModal() {
+export default function EditBoardModal({ newColumn }: { newColumn?: boolean }) {
   const { board } = useRouteLoaderData("board") as { board: IBoard };
-  return <BoardModal board={board} />;
+  return <BoardModal board={board} newColumn={newColumn} />;
 }
 
 EditBoardModal.action = action;

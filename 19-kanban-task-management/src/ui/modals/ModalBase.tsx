@@ -2,16 +2,26 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 type ModalProps = {
+  focusLastInput?: boolean;
   children: React.ReactNode;
 };
 
-export default function ModalBase({ children }: ModalProps) {
+export default function ModalBase({ focusLastInput, children }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     dialogRef.current?.showModal();
-  }, []);
+    if (focusLastInput) {
+      // This is for focusing the recently created column input when visiting
+      // "/boards/:boardId/newColumn". Ideally we would do this using autoFocus,
+      // which would be much simpler, but because of this React bug we can't:
+      // https://github.com/facebook/react/issues/23301
+      dialogRef.current
+        ?.querySelector<HTMLInputElement>("ul > li:last-of-type > input")
+        ?.focus();
+    }
+  }, [focusLastInput]);
 
   return (
     <dialog

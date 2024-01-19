@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { IBoard, IColumn, ITask } from "../lib/types";
 
 export default function Board() {
@@ -10,12 +10,12 @@ export default function Board() {
         {board.columns.map((column, i) => (
           <Column key={i} column={column} />
         ))}
-        <button
-          type="button"
-          className="mt-10 h-[calc(100%-2.5rem)]  w-[17.5rem] rounded-md bg-gradient-to-b from-blue-start to-blue-stop text-heading-xl text-neutral-400"
+        <Link
+          to="newColumn"
+          className="mt-10 grid h-[calc(100%-2.5rem)] w-[17.5rem]  place-items-center rounded-md bg-gradient-to-b from-blue-start to-blue-stop text-heading-xl text-neutral-400"
         >
           + New Column
-        </button>
+        </Link>
       </div>
       {/* <Outlet /> */}
     </>
