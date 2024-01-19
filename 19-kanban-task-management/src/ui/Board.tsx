@@ -26,7 +26,7 @@ function Column({ column }: { column: IColumn }) {
   return (
     <div className="w-[17.5rem]">
       <h2 className="flex gap-3 text-heading-sm uppercase text-neutral-400 before:block before:size-4 before:rounded-full before:bg-purple-300">
-        {column.name} ({column.tasks.length})
+        {column.name || "(Untitled)"} ({column.tasks.length})
       </h2>
       <div className="mt-6 flex flex-col gap-4">
         {column.tasks.map((task, i) => (
