@@ -30,6 +30,8 @@ export default function ModalBase({ focusLastInput, children }: ModalProps) {
         navigate("..");
       }}
       onClick={(event) => {
+        if (event.target !== dialogRef.current) return;
+
         const rect = dialogRef.current!.getBoundingClientRect();
 
         if (
