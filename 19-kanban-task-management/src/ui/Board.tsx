@@ -1,8 +1,8 @@
 import { Link, useLoaderData } from "react-router-dom";
-import { IBoard, IColumn, ITask } from "../lib/types";
+import { TBoard, TColumn, TTask } from "../lib/types";
 
 export default function Board() {
-  const { board } = useLoaderData() as { board: IBoard };
+  const { board } = useLoaderData() as { board: TBoard };
 
   if (board.columns.length === 0) {
     return <EmptyBoard />;
@@ -25,7 +25,7 @@ export default function Board() {
   );
 }
 
-function Column({ column }: { column: IColumn }) {
+function Column({ column }: { column: TColumn }) {
   return (
     <div className="w-[17.5rem]">
       <h2 className="flex gap-3 text-heading-sm uppercase text-neutral-400 before:block before:size-4 before:rounded-full before:bg-purple-300">
@@ -40,10 +40,12 @@ function Column({ column }: { column: IColumn }) {
   );
 }
 
-function Task({ task }: { task: ITask }) {
+function Task({ task }: { task: TTask }) {
   return (
     <div className="rounded-md bg-white px-4 py-6 shadow-task">
-      <h3 className="text-heading-md text-neutral-900">{task.title}</h3>
+      <h3 className="text-heading-md text-neutral-900">
+        <Link to={`tasks/${task.id}`}>{task.title}</Link>
+      </h3>
       <p className="mt-2 text-body-md text-neutral-400">
         {task.subtasks.filter((s) => s.isCompleted).length} of{" "}
         {task.subtasks.length} subtasks

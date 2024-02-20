@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
 import { Link, useRouteLoaderData } from "react-router-dom";
-import { IBoard } from "../lib/types";
+import { TBoard } from "../lib/types";
 import { cn } from "../lib/utils";
+import { ButtonMore } from "./ButtonMore";
 
 type HeaderProps = {
   isSidebarOpen: boolean;
@@ -14,7 +14,7 @@ export default function Header({
   isMobileOpen,
   setIsMobileOpen,
 }: HeaderProps) {
-  const { board } = useRouteLoaderData("board") as { board: IBoard };
+  const { board } = useRouteLoaderData("board") as { board: TBoard };
   const chevronImageUrl = isMobileOpen
     ? "/icon-chevron-up.svg"
     : "/icon-chevron-down.svg";
@@ -41,7 +41,20 @@ export default function Header({
           </button>
         </div>
         <ButtonNewTask />
-        <ButtonMore boardId={board.id} />
+        <ButtonMore className="-right-2 top-full mt-4">
+          <ul className="grid gap-4">
+            <li>
+              <Link to="edit" className="text-neutral-400">
+                Edit Board
+              </Link>
+            </li>
+            <li>
+              <Link to="delete" className="text-red-600">
+                Delete Board
+              </Link>
+            </li>
+          </ul>
+        </ButtonMore>
       </div>
     </header>
   );
@@ -73,67 +86,5 @@ function ButtonNewTask() {
       </span>
       <span className="sr-only sm:not-sr-only">Add New Task</span>
     </button>
-  );
-}
-
-function ButtonMore({ boardId }: { boardId: string }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const ulRef = useRef<HTMLUListElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    window.addEventListener("click", (event) => {
-      if (
-        isOpen &&
-        !(buttonRef.current === event.target) &&
-        event.target instanceof Node &&
-        !ulRef.current?.contains(event.target)
-      ) {
-        setIsOpen(false);
-      }
-    });
-  }, [isOpen]);
-
-  return (
-    <div className="relative">
-      <button
-        ref={buttonRef}
-        type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className="relative before:absolute before:-inset-3"
-      >
-        <img src="/icon-vertical-ellipsis.svg" alt="" />
-      </button>
-      <ul
-        ref={ulRef}
-        className={cn(
-          "invisible absolute -bottom-28 -right-2 grid w-48 gap-4  rounded-md bg-white p-4 text-body-lg opacity-0 transition-all",
-          isOpen && "visible opacity-100",
-        )}
-      >
-        <li>
-          <Link
-            to={`/boards/${boardId}/edit`}
-            className="text-neutral-400"
-            onClick={() => {
-              setIsOpen(false);
-            }}
-          >
-            Edit Board
-          </Link>
-        </li>
-        <li>
-          <Link
-            to={`/boards/${boardId}/delete`}
-            className="text-red-600"
-            onClick={() => {
-              setIsOpen(false);
-            }}
-          >
-            Delete Board
-          </Link>
-        </li>
-      </ul>
-    </div>
   );
 }

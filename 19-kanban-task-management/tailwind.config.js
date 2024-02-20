@@ -1,4 +1,5 @@
 import defaultTheme from "tailwindcss/defaultTheme";
+import headlessui from "@headlessui/tailwindcss";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -56,5 +57,5 @@ export default {
       task: "0px 4px 6px 0px rgba(54, 78, 126, 0.10)",
     },
   },
-  plugins: [],
+  plugins: [headlessui({ prefix: "ui" })],
 };

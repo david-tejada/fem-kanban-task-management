@@ -12,6 +12,7 @@ import DeleteBoardModal from "./routes/DeleteBoardModal.tsx";
 import EditBoardModal from "./routes/EditBoardModal.tsx";
 import Root from "./routes/Root.tsx";
 import LastBoardModal from "./routes/LastBoardModal.tsx";
+import ViewTaskModal from "./routes/ViewTaskModal.tsx";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,12 @@ const router = createBrowserRouter([
             path: "/boards/:boardId/newColumn",
             element: <EditBoardModal newColumn={true} />,
             action: EditBoardModal.action,
+          },
+          {
+            path: "/boards/:boardId/tasks/:taskId",
+            element: <ViewTaskModal />,
+            loader: ViewTaskModal.loader,
+            action: ViewTaskModal.action,
           },
         ],
       },
