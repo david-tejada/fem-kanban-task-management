@@ -1,6 +1,6 @@
 import { Params, redirect, useRouteLoaderData } from "react-router-dom";
-import { updateBoard } from "../lib/boards";
-import { IBoard } from "../lib/types";
+import { updateBoard, updateColumns } from "../lib/boards";
+import { TBoard } from "../lib/types";
 import BoardModal from "../ui/modals/BoardModal";
 
 async function action({
@@ -21,12 +21,13 @@ async function action({
       return { id, name: value.toString() };
     });
 
-  await updateBoard(params.boardId!, data.name.toString(), columns);
+  await updateBoard(params.boardId!, data.name.toString());
+  await updateColumns(params.boardId!, columns);
   return redirect("..");
 }
 
 export default function EditBoardModal({ newColumn }: { newColumn?: boolean }) {
-  const { board } = useRouteLoaderData("board") as { board: IBoard };
+  const { board } = useRouteLoaderData("board") as { board: TBoard };
   return <BoardModal board={board} newColumn={newColumn} />;
 }
 

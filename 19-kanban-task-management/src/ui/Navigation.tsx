@@ -1,10 +1,10 @@
 import { Link, NavLink, useRouteLoaderData } from "react-router-dom";
-import { IBoard } from "../lib/types";
+import { TBoard } from "../lib/types";
 import { cn } from "../lib/utils";
 import ThemeSwitcher from "./ThemeSwitcher";
 
 type NavigationProps = {
-  boards: IBoard[];
+  boards: TBoard[];
   isMobileOpen: boolean;
   isSidebarOpen: boolean;
   setIsMobileOpen(value: boolean): void;
@@ -18,7 +18,7 @@ export default function Navigation({
   setIsMobileOpen,
   setIsSidebarOpen,
 }: NavigationProps) {
-  const { board } = useRouteLoaderData("board") as { board: IBoard };
+  const { board } = useRouteLoaderData("board") as { board: TBoard };
 
   return (
     <>

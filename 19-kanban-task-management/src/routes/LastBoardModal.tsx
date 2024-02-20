@@ -1,5 +1,5 @@
 import { Form, redirect, useRouteLoaderData } from "react-router-dom";
-import { IBoard } from "../lib/types";
+import { TBoard } from "../lib/types";
 import ModalBase from "../ui/modals/ModalBase";
 
 async function action() {
@@ -7,7 +7,7 @@ async function action() {
 }
 
 export default function LastBoardModal() {
-  const { board } = useRouteLoaderData("board") as { board: IBoard };
+  const { board } = useRouteLoaderData("board") as { board: TBoard };
 
   return (
     <ModalBase>

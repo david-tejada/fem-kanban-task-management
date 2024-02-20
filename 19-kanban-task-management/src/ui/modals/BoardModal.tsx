@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Form } from "react-router-dom";
-import { IBoard, IColumn } from "../../lib/types";
+import { TBoard, TColumn } from "../../lib/types";
 import { Input, Label } from "../forms/FormComponents";
 import ModalBase from "./ModalBase";
 
@@ -8,7 +8,7 @@ export default function BoardModal({
   board,
   newColumn,
 }: {
-  board?: IBoard;
+  board?: TBoard;
   newColumn?: boolean;
 }) {
   if (newColumn && !board) {
@@ -24,7 +24,7 @@ export default function BoardModal({
     : [];
 
   const [boardName, setBoardName] = useState(board?.name ?? "");
-  const [columns, setColumns] = useState<IColumn[]>(initialColumns);
+  const [columns, setColumns] = useState<TColumn[]>(initialColumns);
 
   function addColumn() {
     setColumns([...columns, { id: crypto.randomUUID(), name: "", tasks: [] }]);

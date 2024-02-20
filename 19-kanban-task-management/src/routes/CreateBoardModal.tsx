@@ -11,7 +11,7 @@ async function action({ request }: { request: Request }) {
     .map(([key, value]) => {
       const [_, id] = key.split(":");
 
-      return { id, name: value.toString(), tasks: [] };
+      return { id, name: value.toString() };
     });
 
   const board = await createBoard(

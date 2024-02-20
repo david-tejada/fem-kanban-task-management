@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet, Params, useLoaderData } from "react-router-dom";
 import { getBoard, getBoards } from "../lib/boards";
 import useLocalStorage from "../lib/hooks/useLocalStorage";
-import { IBoard } from "../lib/types";
+import { TBoard } from "../lib/types";
 import { cn } from "../lib/utils";
 import Header from "../ui/Header";
 import Navigation from "../ui/Navigation";
@@ -16,7 +16,7 @@ async function loader({ params }: { params: Params<"boardId"> }) {
 
 export default function Root() {
   const { boards } = useLoaderData() as {
-    boards: IBoard[];
+    boards: TBoard[];
   };
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorage(
     "sidebar-open",

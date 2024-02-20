@@ -1,6 +1,4 @@
-import { IBoard } from "./types";
-
-const boards: IBoard[] = [
+const boards = [
   {
     id: "2921bfa3-3495-4c12-98ae-3d0e71a7e43b",
     name: "Platform Launch",

@@ -1,27 +1,41 @@
-export interface IBoard {
+export interface DBBoard {
   id: string;
   name: string;
-  columns: IColumn[];
 }
 
-export interface IColumn {
+export interface DBColumn {
   id: string;
+  boardId: string;
   name: string;
-  tasks: ITask[];
 }
 
-export interface ITask {
+export interface DBTask {
   id: string;
+  columnId: string;
   title: string;
   description: string;
   status: string;
-  subtasks: ISubtask[];
 }
 
-export interface ISubtask {
+export interface DBSubtask {
   id: string;
+  taskId: string;
   title: string;
   isCompleted: boolean;
 }
+
+export type TBoard = DBBoard & {
+  columns: TColumn[];
+};
+
+export type TColumn = Omit<DBColumn, "boardId"> & {
+  tasks: TTask[];
+};
+
+export type TTask = Omit<DBTask, "columnId"> & {
+  subtasks: TSubtask[];
+};
+
+type TSubtask = Omit<DBSubtask, "taskId">;
 
 export type ModalState = null | "addBoard" | "editBoard";

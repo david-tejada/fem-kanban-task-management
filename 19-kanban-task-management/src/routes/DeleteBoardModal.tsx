@@ -7,7 +7,7 @@ import {
   useRouteLoaderData,
 } from "react-router-dom";
 import { deleteBoard, getBoards } from "../lib/boards";
-import { IBoard } from "../lib/types";
+import { TBoard } from "../lib/types";
 import ModalBase from "../ui/modals/ModalBase";
 
 async function action({ params }: { params: Params<"boardId"> }) {
@@ -21,7 +21,7 @@ async function action({ params }: { params: Params<"boardId"> }) {
 }
 
 export default function DeleteBoardModal() {
-  const { board } = useRouteLoaderData("board") as { board: IBoard };
+  const { board } = useRouteLoaderData("board") as { board: TBoard };
   const navigate = useNavigate();
 
   return (
