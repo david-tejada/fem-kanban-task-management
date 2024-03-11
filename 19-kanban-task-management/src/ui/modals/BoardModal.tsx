@@ -87,7 +87,7 @@ export default function BoardModal({
             onClick={() => {
               addColumn();
             }}
-            className="mt-3 w-full rounded-full bg-purple-500-10 py-2 text-body-lg font-bold text-purple-500 dark:bg-white"
+            className="mt-3 w-full rounded-full bg-purple-500/10 py-2 text-body-lg font-bold text-purple-500 dark:bg-white"
           >
             <span aria-hidden="true">+ </span>Add New Column
           </button>

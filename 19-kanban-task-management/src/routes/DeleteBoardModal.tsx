@@ -41,7 +41,7 @@ export default function DeleteBoardModal() {
           </button>
           <Link
             to={`/boards/${board.id}`}
-            className="w-full rounded-full bg-purple-500-10 py-2 text-center text-body-lg font-bold text-purple-500"
+            className="w-full rounded-full bg-purple-500/10 py-2 text-center text-body-lg font-bold text-purple-500"
             onKeyDown={(event) => {
               if (event.key === " ") {
                 navigate(`/boards/${board.id}`);

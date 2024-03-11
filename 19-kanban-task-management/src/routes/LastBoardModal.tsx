@@ -20,7 +20,7 @@ export default function LastBoardModal() {
         <div className="mt-6 flex gap-4">
           <button
             type="submit"
-            className="w-full rounded-full bg-purple-500-10 py-2 text-center text-body-lg font-bold text-purple-500"
+            className="w-full rounded-full bg-purple-500/10 py-2 text-center text-body-lg font-bold text-purple-500"
           >
             Confirm
           </button>

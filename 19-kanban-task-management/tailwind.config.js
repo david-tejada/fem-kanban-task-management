@@ -22,10 +22,7 @@ export default {
     },
     colors: {
       neutral: {
-        400: {
-          DEFAULT: "hsl(216deg, 15%, 57%)",
-          25: "hsl(216deg, 15%, 57%, 25%)",
-        },
+        400: "hsl(216deg, 15%, 57%)",
         600: "hsl(236deg, 11%, 27%)",
         700: "hsl(235deg, 12%, 19%)",
         800: "hsl(235deg, 16%, 15%)",
@@ -37,10 +34,7 @@ export default {
       },
       purple: {
         300: "hsl(243deg, 100%, 82%)",
-        500: {
-          DEFAULT: "hsl(242deg, 48%, 58%)",
-          10: "hsl(242deg, 48%, 58%, 10%)",
-        },
+        500: "hsl(242deg, 48%, 58%)",
       },
       red: {
         300: "hsl(0deg, 100%, 80%)",

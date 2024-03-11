@@ -38,7 +38,7 @@ export function Input({
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       autoFocus={autofocus}
-      className="bg-transparent w-full rounded-[0.25rem] border border-neutral-400-25 px-4 py-2 text-body-lg text-neutral-900 placeholder:text-neutral-400 dark:text-white"
+      className="bg-transparent w-full rounded-[0.25rem] border border-neutral-400/25 px-4 py-2 text-body-lg text-neutral-900 placeholder:text-neutral-400 dark:text-white"
     />
   );
 }
