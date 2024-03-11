@@ -48,6 +48,7 @@ export default {
       },
       white: "hsl(0deg, 0%, 100%)",
       black: "hsl(0deg, 0%, 0%)",
+      transparent: "hsl(0deg, 0%, 0%, 0%)",
       translucent: "hsl(0deg, 0%, 0%, 50%)",
       current: "currentColor",
       "blue-start": "hsl(219deg, 63%, 95%)",

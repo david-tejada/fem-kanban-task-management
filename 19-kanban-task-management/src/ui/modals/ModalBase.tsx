@@ -43,7 +43,7 @@ export default function ModalBase({ focusLastInput, children }: ModalProps) {
           dialogRef.current?.close();
         }
       }}
-      className="w-5/6 max-w-lg overflow-visible rounded-md p-8 backdrop:bg-translucent"
+      className="w-5/6 max-w-lg overflow-visible rounded-md p-8 backdrop:bg-translucent dark:bg-neutral-700"
     >
       {children}
     </dialog>

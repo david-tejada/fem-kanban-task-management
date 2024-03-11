@@ -45,7 +45,7 @@ export default function BoardModal({
   return (
     <ModalBase focusLastInput={newColumn}>
       <Form method="post" className="mt-6 grid gap-6">
-        <h2 className="text-heading-lg text-neutral-900">
+        <h2 className="text-heading-lg text-neutral-900 dark:text-white">
           {board ? "Edit Board" : "Add New Board"}
         </h2>
         <Label caption="Board Name">
@@ -87,7 +87,7 @@ export default function BoardModal({
             onClick={() => {
               addColumn();
             }}
-            className="mt-3 w-full rounded-full bg-purple-500-10 py-2 text-body-lg font-bold text-purple-500"
+            className="mt-3 w-full rounded-full bg-purple-500-10 py-2 text-body-lg font-bold text-purple-500 dark:bg-white"
           >
             <span aria-hidden="true">+ </span>Add New Column
           </button>

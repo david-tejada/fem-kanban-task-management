@@ -62,7 +62,7 @@ export default function ViewTaskModal() {
       <article>
         <fetcher.Form method="post">
           <header className="flex gap-4">
-            <h2 className="grow text-heading-lg text-neutral-900">
+            <h2 className="grow text-heading-lg text-neutral-900 dark:text-white">
               {task.title}
             </h2>
             <ButtonMore className="top-full -translate-x-1/2">
@@ -94,8 +94,8 @@ export default function ViewTaskModal() {
                   <li
                     key={s.id}
                     className={cn(
-                      `bg-blue-100 p-3 text-neutral-900 `,
-                      s.isCompleted && "text-opacity-50",
+                      `bg-blue-100 p-3 text-neutral-900 dark:bg-neutral-900 dark:text-white`,
+                      s.isCompleted && "text-opacity-50 dark:text-neutral-400",
                     )}
                   >
                     <label className="flex gap-4">
@@ -126,11 +126,11 @@ export default function ViewTaskModal() {
                 fetcher.submit({ columnId: columnId }, { method: "post" });
               }}
             >
-              <Listbox.Button className="flex w-full items-center justify-between rounded-[0.25rem] border border-neutral-400 px-4 py-2 text-left text-body-lg hover:border-purple-500 ui-open:border-purple-500">
+              <Listbox.Button className="flex w-full items-center justify-between rounded-[0.25rem] border border-neutral-400 px-4 py-2 text-left text-body-lg hover:border-purple-500 ui-open:border-purple-500 dark:text-white">
                 {column.name}
                 <img src="/icon-chevron-down.svg" alt="" />
               </Listbox.Button>
-              <Listbox.Options className="absolute z-10 mt-2 grid w-full gap-2 rounded-[0.25rem] bg-white p-4">
+              <Listbox.Options className="absolute z-10 mt-2 grid w-full gap-2 rounded-[0.25rem] bg-white p-4 dark:bg-neutral-700">
                 {board.columns.map((column) => (
                   <Listbox.Option
                     key={column.id}
