@@ -16,7 +16,7 @@ export default function Board() {
         ))}
         <Link
           to="newColumn"
-          className="mt-10 grid h-[calc(100%-2.5rem)] w-[17.5rem]  place-items-center rounded-md bg-gradient-to-b from-blue-start to-blue-stop text-heading-xl text-neutral-400"
+          className="mt-10 grid h-[calc(100%-2.5rem)] w-[17.5rem]  place-items-center rounded-md bg-gradient-to-b from-blue-start to-blue-stop text-heading-xl text-neutral-400 dark:from-neutral-700 dark:to-neutral-700/50"
         >
           + New Column
         </Link>
@@ -42,8 +42,8 @@ function Column({ column }: { column: TColumn }) {
 
 function Task({ task }: { task: TTask }) {
   return (
-    <div className="rounded-md bg-white px-4 py-6 shadow-task">
-      <h3 className="text-heading-md text-neutral-900">
+    <div className="rounded-md bg-white px-4 py-6 shadow-task dark:bg-neutral-700">
+      <h3 className="text-heading-md text-neutral-900 dark:text-white">
         <Link to={`tasks/${task.id}`}>{task.title}</Link>
       </h3>
       <p className="mt-2 text-body-md text-neutral-400">
