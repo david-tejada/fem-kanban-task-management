@@ -1,5 +1,5 @@
 import { Params, redirect, useRouteLoaderData } from "react-router-dom";
-import { TTask } from "../lib/types";
+import { TBoard, TTask } from "../lib/types";
 import TaskModal from "../ui/modals/TaskModal";
 import { updateSubtasks, updateTask } from "../lib/boards";
 
@@ -23,20 +23,22 @@ async function action({
 
   await updateTask(
     params.taskId!,
+    data.columnId.toString(),
     data.title.toString(),
     data.description.toString(),
   );
   await updateSubtasks(params.taskId!, subtasks);
 
-  return redirect("/");
+  return redirect("../..");
 }
 
 export default function EditTaskModal() {
-  const { task } = useRouteLoaderData("task") as {
+  const { task, board } = useRouteLoaderData("task") as {
     task: TTask;
+    board: TBoard;
   };
 
-  return <TaskModal task={task} />;
+  return <TaskModal task={task} board={board} />;
 }
 
 EditTaskModal.action = action;

@@ -206,6 +206,7 @@ export async function getTask(taskId: string) {
 
 export async function updateTask(
   id: string,
+  columnId: string,
   title: string,
   description: string,
 ) {
@@ -216,6 +217,7 @@ export async function updateTask(
     throw new Error("No task with the supplied id.");
   }
 
+  task.columnId = columnId;
   task.title = title;
   task.description = description;
 
