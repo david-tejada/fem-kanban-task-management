@@ -1,5 +1,5 @@
 import { Listbox } from "@headlessui/react";
-import { Link, Params, useFetcher, useLoaderData } from "react-router-dom";
+import { Link, Params, useFetcher, useRouteLoaderData } from "react-router-dom";
 import {
   getBoard,
   getTask,
@@ -45,7 +45,10 @@ async function action({
 
 export default function ViewTaskModal() {
   const fetcher = useFetcher();
-  const { board, task } = useLoaderData() as { board: TBoard; task: TTask };
+  const { board, task } = useRouteLoaderData("task") as {
+    board: TBoard;
+    task: TTask;
+  };
   let column = board.columns.find((c) =>
     c.tasks.some((t) => t.id === task.id),
   )!;
@@ -68,7 +71,10 @@ export default function ViewTaskModal() {
             <ButtonMore className="top-full -translate-x-1/2">
               <ul className="grid gap-4">
                 <li>
-                  <Link to="edit" className="text-neutral-400">
+                  <Link
+                    to={`/boards/${board.id}/tasks/${task.id}/edit`}
+                    className="text-neutral-400"
+                  >
                     Edit Task
                   </Link>
                 </li>

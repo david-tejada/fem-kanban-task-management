@@ -44,7 +44,7 @@ function Task({ task }: { task: TTask }) {
   return (
     <div className="rounded-md bg-white px-4 py-6 shadow-task dark:bg-neutral-700">
       <h3 className="text-heading-md text-neutral-900 dark:text-white">
-        <Link to={`tasks/${task.id}`}>{task.title}</Link>
+        <Link to={`tasks/${task.id}/view`}>{task.title}</Link>
       </h3>
       <p className="mt-2 text-body-md text-neutral-400">
         {task.subtasks.filter((s) => s.isCompleted).length} of{" "}

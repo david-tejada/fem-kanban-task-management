@@ -13,6 +13,7 @@ import EditBoardModal from "./routes/EditBoardModal.tsx";
 import Root from "./routes/Root.tsx";
 import LastBoardModal from "./routes/LastBoardModal.tsx";
 import ViewTaskModal from "./routes/ViewTaskModal.tsx";
+import EditTaskModal from "./routes/EditTaskModal.tsx";
 
 const router = createBrowserRouter([
   {
@@ -59,9 +60,21 @@ const router = createBrowserRouter([
           },
           {
             path: "/boards/:boardId/tasks/:taskId",
-            element: <ViewTaskModal />,
+            id: "task",
             loader: ViewTaskModal.loader,
             action: ViewTaskModal.action,
+            children: [
+              {
+                path: "/boards/:boardId/tasks/:taskId/view",
+                element: <ViewTaskModal />,
+                action: ViewTaskModal.action,
+              },
+              {
+                path: "/boards/:boardId/tasks/:taskId/edit",
+                element: <EditTaskModal />,
+                action: EditTaskModal.action,
+              },
+            ],
           },
         ],
       },

@@ -204,6 +204,24 @@ export async function getTask(taskId: string) {
   };
 }
 
+export async function updateTask(
+  id: string,
+  title: string,
+  description: string,
+) {
+  const tasks = (await localforage.getItem("tasks")) as DBTask[];
+  const task = tasks.find((t) => t.id === id);
+
+  if (!task) {
+    throw new Error("No task with the supplied id.");
+  }
+
+  task.title = title;
+  task.description = description;
+
+  return localforage.setItem("tasks", tasks);
+}
+
 export async function getSubtasks(taskId: string) {
   const subtasks = (await localforage.getItem("subtasks")) as DBSubtask[];
   return subtasks
@@ -213,6 +231,32 @@ export async function getSubtasks(taskId: string) {
       title: s.title,
       isCompleted: s.isCompleted,
     }));
+}
+
+export async function updateSubtasks(
+  taskId: string,
+  newSubtasks: { id: string; title: string }[],
+) {
+  let subtasks = (await localforage.getItem("subtasks")) as DBSubtask[];
+
+  // Delete the columns that are not included in the update, since those would
+  // have been deleted.
+  const newSubtasksIds = newSubtasks.map((c) => c.id);
+  const subtasksToDelete = subtasks
+    .filter((c) => c.taskId === taskId && !newSubtasksIds.includes(c.id))
+    .map((c) => c.id);
+  subtasks = subtasks.filter((c) => !subtasksToDelete.includes(c.id));
+
+  for (const { id, title } of newSubtasks) {
+    const subtask = subtasks.find((c) => c.id === id);
+    if (subtask) {
+      subtask.title = title;
+    } else {
+      subtasks.push({ id, taskId, title, isCompleted: false });
+    }
+  }
+
+  return localforage.setItem("subtasks", subtasks);
 }
 
 export async function updateCompletedSubtasks(
