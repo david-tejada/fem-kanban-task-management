@@ -108,33 +108,42 @@ export default function TaskModal({
             <span aria-hidden="true">+ </span>Add New Subtask
           </button>
         </Label>
-        <h3 className="mt-6 text-body-md text-neutral-400">Current Status</h3>
-        <input type="text" name="columnId" value={column.id} hidden readOnly />
-        <div className="relative mt-2">
-          <Listbox
+        <div>
+          <h3 className="text-body-md text-neutral-400 dark:text-white">
+            Current Status
+          </h3>
+          <input
+            type="text"
+            name="columnId"
             value={column.id}
-            name="board"
-            onChange={(columnId) => {
-              console.log(`onChange: ${columnId}`);
-              updateColumn(columnId);
-            }}
-          >
-            <Listbox.Button className="flex w-full items-center justify-between rounded-[0.25rem] border border-neutral-400 px-4 py-2 text-left text-body-lg hover:border-purple-500 ui-open:border-purple-500 dark:text-white">
-              {column.name}
-              <img src="/icon-chevron-down.svg" alt="" />
-            </Listbox.Button>
-            <Listbox.Options className="absolute z-10 mt-2 grid w-full gap-2 rounded-[0.25rem] bg-white p-4 dark:bg-neutral-700">
-              {board.columns.map((column) => (
-                <Listbox.Option
-                  key={column.id}
-                  value={column.id}
-                  className="cursor-pointer text-body-lg text-neutral-400 ui-active:text-purple-500"
-                >
-                  {column.name}
-                </Listbox.Option>
-              ))}
-            </Listbox.Options>
-          </Listbox>
+            hidden
+            readOnly
+          />
+          <div className="relative mt-2">
+            <Listbox
+              value={column.id}
+              name="board"
+              onChange={(columnId) => {
+                updateColumn(columnId);
+              }}
+            >
+              <Listbox.Button className="flex w-full items-center justify-between rounded-[0.25rem] border border-neutral-400 px-4 py-2 text-left text-body-lg hover:border-purple-500 ui-open:border-purple-500 dark:text-white">
+                {column.name}
+                <img src="/icon-chevron-down.svg" alt="" />
+              </Listbox.Button>
+              <Listbox.Options className="absolute z-10 mt-2 grid w-full gap-2 rounded-[0.25rem] bg-white p-4 dark:bg-neutral-700">
+                {board.columns.map((column) => (
+                  <Listbox.Option
+                    key={column.id}
+                    value={column.id}
+                    className="cursor-pointer text-body-lg text-neutral-400 ui-active:text-purple-500"
+                  >
+                    {column.name}
+                  </Listbox.Option>
+                ))}
+              </Listbox.Options>
+            </Listbox>
+          </div>
         </div>
         <button
           type="submit"
