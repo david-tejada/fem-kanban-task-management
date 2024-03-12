@@ -91,7 +91,7 @@ export default function ViewTaskModal() {
           </p>
           {task.subtasks.length > 0 && (
             <div className="text-body-md">
-              <h3 className="mt-6 text-neutral-400">
+              <h3 className="mt-6 text-neutral-400 dark:text-white">
                 Subtasks ({task.subtasks.filter((s) => s.isCompleted).length} of{" "}
                 {task.subtasks.length})
               </h3>
@@ -123,7 +123,9 @@ export default function ViewTaskModal() {
               </ul>
             </div>
           )}
-          <h3 className="mt-6 text-body-md text-neutral-400">Current Status</h3>
+          <h3 className="mt-6 text-body-md text-neutral-400 dark:text-white">
+            Current Status
+          </h3>
           <div className="relative mt-2">
             <Listbox
               value={column.id}
