@@ -76,8 +76,8 @@ function Logo() {
 
 function ButtonNewTask() {
   return (
-    <button
-      type="button"
+    <Link
+      to="newTask"
       className="ml-auto items-center rounded-full bg-purple-500 px-[1.125rem] py-[0.625rem] text-heading-md text-white sm:px-6 sm:py-3"
     >
       <img src="/icon-add-task-mobile.svg" alt="" className="sm:hidden" />
@@ -85,6 +85,6 @@ function ButtonNewTask() {
         +{" "}
       </span>
       <span className="sr-only sm:not-sr-only">Add New Task</span>
-    </button>
+    </Link>
   );
 }

@@ -204,6 +204,29 @@ export async function getTask(taskId: string) {
   };
 }
 
+export async function createTask(
+  columnId: string,
+  title: string,
+  description: string,
+  subtasks: { id: string; title: string }[],
+) {
+  const tasks = (await localforage.getItem("tasks")) as DBTask[];
+  const newTask = { id: crypto.randomUUID(), columnId, title, description };
+
+  await localforage.setItem("tasks", [...tasks, newTask]);
+
+  const storedSubtasks = (await localforage.getItem("subtasks")) as DBSubtask[];
+  await localforage.setItem("subtasks", [
+    ...storedSubtasks,
+    ...subtasks.map((s) => ({
+      id: s.id,
+      taskId: newTask.id,
+      title: s.title,
+      isCompleted: false,
+    })),
+  ]);
+}
+
 export async function updateTask(
   id: string,
   columnId: string,
