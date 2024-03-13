@@ -247,6 +247,12 @@ export async function updateTask(
   return localforage.setItem("tasks", tasks);
 }
 
+export async function deleteTask(id: string) {
+  const tasks = (await localforage.getItem("tasks")) as DBTask[];
+  const updatedTasks = tasks.filter((t) => t.id !== id);
+  await localforage.setItem("tasks", updatedTasks);
+}
+
 export async function getSubtasks(taskId: string) {
   const subtasks = (await localforage.getItem("subtasks")) as DBSubtask[];
   return subtasks

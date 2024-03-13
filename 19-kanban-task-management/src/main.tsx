@@ -15,6 +15,7 @@ import LastBoardModal from "./routes/LastBoardModal.tsx";
 import ViewTaskModal from "./routes/ViewTaskModal.tsx";
 import EditTaskModal from "./routes/EditTaskModal.tsx";
 import CreateTaskModal from "./routes/CreateTaskModal.tsx";
+import DeleteTaskModal from "./routes/DeleteTaskModal.tsx";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,11 @@ const router = createBrowserRouter([
                 path: "/boards/:boardId/tasks/:taskId/edit",
                 element: <EditTaskModal />,
                 action: EditTaskModal.action,
+              },
+              {
+                path: "/boards/:boardId/tasks/:taskId/delete",
+                element: <DeleteTaskModal />,
+                action: DeleteTaskModal.action,
               },
             ],
           },

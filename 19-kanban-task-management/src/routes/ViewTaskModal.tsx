@@ -79,7 +79,7 @@ export default function ViewTaskModal() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="delete" className="text-red-600">
+                  <Link to="../delete" className="text-red-600">
                     Delete Task
                   </Link>
                 </li>
