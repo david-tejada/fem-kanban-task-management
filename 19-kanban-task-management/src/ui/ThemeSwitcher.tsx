@@ -10,7 +10,7 @@ export default function ThemeSwitcher() {
       <Switch
         checked={darkMode}
         onChange={toggleDarkMode}
-        className="relative inline-flex h-5 w-10 items-center rounded-full bg-purple-500"
+        className="relative inline-flex h-5 w-10 items-center rounded-full bg-purple-500 hover:bg-purple-500/75"
       >
         <span className="sr-only">
           {darkMode ? `Toggle light mode` : `Toggle dark mode`}
