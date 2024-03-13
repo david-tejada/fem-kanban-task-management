@@ -75,6 +75,22 @@ function Logo() {
 }
 
 function ButtonNewTask() {
+  const { board } = useRouteLoaderData("board") as { board: TBoard };
+
+  if (board.columns.length === 0) {
+    return (
+      <button
+        disabled
+        className="ml-auto cursor-not-allowed items-center rounded-full bg-purple-500/25 px-[1.125rem] py-[0.625rem] text-heading-md text-white sm:px-6 sm:py-3"
+      >
+        <span className="hidden sm:inline" aria-hidden="true">
+          +{" "}
+        </span>
+        <span className="sr-only sm:not-sr-only">Add New Task</span>
+      </button>
+    );
+  }
+
   return (
     <Link
       to="newTask"
