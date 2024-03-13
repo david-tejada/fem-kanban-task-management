@@ -9,4 +9,8 @@
     font-display: swap;
     src: url(./assets/PlusJakartaSans-VariableFont_wght.ttf);
   }
+
+  html {
+    overflow: hidden;
+  }
 }
