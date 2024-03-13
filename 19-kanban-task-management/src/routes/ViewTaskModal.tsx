@@ -100,11 +100,11 @@ export default function ViewTaskModal() {
                   <li
                     key={s.id}
                     className={cn(
-                      `bg-blue-100 p-3 text-neutral-900 dark:bg-neutral-900 dark:text-white`,
+                      `relative bg-blue-100 p-3 text-neutral-900 hover:bg-purple-500/50 dark:bg-neutral-900 dark:text-white`,
                       s.isCompleted && "text-opacity-50 dark:text-neutral-400",
                     )}
                   >
-                    <label className="flex gap-4">
+                    <label className="flex cursor-pointer gap-4 before:absolute before:inset-0">
                       <input
                         name={`subtask:${s.id}`}
                         type="checkbox"
