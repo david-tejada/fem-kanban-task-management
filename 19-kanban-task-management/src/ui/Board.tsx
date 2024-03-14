@@ -12,7 +12,7 @@ export default function Board() {
     <>
       <div className="mx-4 my-6 flex shrink-0 gap-6">
         {board.columns.map((column, i) => (
-          <Column key={i} column={column} />
+          <Column key={column.id} column={column} index={i} />
         ))}
         <Link
           to="newColumn"
@@ -25,10 +25,21 @@ export default function Board() {
   );
 }
 
-function Column({ column }: { column: TColumn }) {
+function Column({ column, index }: { column: TColumn; index: number }) {
+  const dots = [
+    "before:bg-[#49C4E5]",
+    "before:bg-[#8471F2]",
+    "before:bg-[#67E2AE]",
+    "before:bg-[#FF715B]",
+    "before:bg-[#F9CB40]",
+  ];
   return (
     <div className="w-[17.5rem]">
-      <h2 className="flex gap-3 text-heading-sm uppercase text-neutral-400 before:block before:size-4 before:rounded-full before:bg-purple-300">
+      <h2
+        className={`flex gap-3 text-heading-sm uppercase text-neutral-400 before:block before:size-4 before:rounded-full ${
+          dots[index % dots.length]
+        }`}
+      >
         {column.name || "(Untitled)"} ({column.tasks.length})
       </h2>
       <div className="mt-6 flex flex-col gap-4">
