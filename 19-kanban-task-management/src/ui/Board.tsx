@@ -63,7 +63,7 @@ function EmptyBoard() {
         </p>
         <Link
           to="newColumn"
-          className="mx-auto max-w-fit items-center rounded-full bg-purple-500 p-4 text-heading-md text-white"
+          className="mx-auto max-w-fit items-center rounded-full bg-purple-500 p-4 text-heading-md text-white hover:bg-purple-500/75"
         >
           <span aria-hidden="true">+</span> Add New Column
         </Link>

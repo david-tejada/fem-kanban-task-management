@@ -41,7 +41,7 @@ export default function Header({
           </button>
         </div>
         <ButtonNewTask />
-        <ButtonMore className="-right-2 top-full mt-4 dark:bg-neutral-800">
+        <ButtonMore className="-right-2 top-full mt-4">
           <ul className="grid gap-4">
             <li>
               <Link to="edit" className="text-neutral-400">

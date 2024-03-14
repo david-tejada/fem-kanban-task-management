@@ -112,7 +112,7 @@ export default function Navigation({
         onClick={() => {
           setIsSidebarOpen(true);
         }}
-        className="fixed bottom-8 hidden rounded-r-full bg-purple-500 px-5 py-[1.15625rem] sm:block"
+        className="fixed bottom-8 hidden rounded-r-full bg-purple-500 px-5 py-[1.15625rem] hover:bg-purple-500/75 sm:block"
       >
         <img src="/icon-show-sidebar.svg" alt="" className="max-w-none" />
         <p className="sr-only">Show sidebar</p>
