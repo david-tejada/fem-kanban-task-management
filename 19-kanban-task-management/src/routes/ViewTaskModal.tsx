@@ -100,7 +100,7 @@ export default function ViewTaskModal() {
                   <li
                     key={s.id}
                     className={cn(
-                      `relative bg-blue-100 p-3 text-neutral-900 hover:bg-purple-500/25 dark:bg-neutral-900 dark:text-white`,
+                      `relative bg-blue-100 p-3 text-neutral-900 hover:bg-purple-500/25 dark:bg-neutral-800 dark:text-white`,
                       s.isCompleted && "text-opacity-50 dark:text-neutral-400",
                     )}
                   >
