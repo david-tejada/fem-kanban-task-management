@@ -42,7 +42,7 @@ export function ButtonMore({
       <div
         ref={wrapperRef}
         className={cn(
-          "invisible absolute w-48 rounded-md bg-white p-4 text-body-lg opacity-0 transition-all",
+          "invisible absolute w-48 rounded-md bg-white p-4 text-body-lg opacity-0 transition-all dark:bg-neutral-800",
           isOpen && "visible opacity-100",
           className,
         )}
