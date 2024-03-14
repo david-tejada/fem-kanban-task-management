@@ -30,7 +30,7 @@ export function ButtonMore({
   }, [isOpen]);
 
   return (
-    <div className="relative flex shrink-0 items-center">
+    <div className="relative z-10 flex shrink-0 items-center">
       <button
         ref={buttonRef}
         type="button"
