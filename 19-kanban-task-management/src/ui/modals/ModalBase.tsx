@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { Dialog } from "@headlessui/react";
+import { useEffect, useRef } from "react";
 
 type ModalProps = {
   focusLastInput?: boolean;
@@ -7,16 +8,17 @@ type ModalProps = {
 };
 
 export default function ModalBase({ focusLastInput, children }: ModalProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const navigate = useNavigate();
 
+  const dialogRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    dialogRef.current?.showModal();
     if (focusLastInput) {
       // This is for focusing the recently created column input when visiting
       // "/boards/:boardId/newColumn". Ideally we would do this using autoFocus,
-      // which would be much simpler, but because of this React bug we can't:
-      // https://github.com/facebook/react/issues/23301
+      // which would be much simpler, but it only works the first time. I think
+      // it's because we never close the modal and just navigate to a different
+      // route.
       dialogRef.current
         ?.querySelector<HTMLInputElement>("ul > li:last-of-type > input")
         ?.focus();
@@ -24,28 +26,26 @@ export default function ModalBase({ focusLastInput, children }: ModalProps) {
   }, [focusLastInput]);
 
   return (
-    <dialog
-      ref={dialogRef}
+    <Dialog
+      open={true}
       onClose={() => {
-        navigate("..");
+        navigate("/");
       }}
-      onClick={(event) => {
-        if (event.target !== dialogRef.current) return;
-
-        const rect = dialogRef.current!.getBoundingClientRect();
-
-        if (
-          event.clientY < rect.top ||
-          event.clientY > rect.bottom ||
-          event.clientX < rect.left ||
-          event.clientX > rect.right
-        ) {
-          dialogRef.current?.close();
-        }
-      }}
-      className="w-5/6 max-w-lg overflow-visible rounded-md p-8 backdrop:bg-translucent dark:bg-neutral-700"
+      className="fixed inset-0 z-50"
     >
-      {children}
-    </dialog>
+      <div
+        className="fixed inset-0 bg-black/30"
+        aria-hidden="true"
+        onClick={() => {
+          navigate("/");
+        }}
+      />
+      <div
+        ref={dialogRef}
+        className="fixed left-1/2 top-1/2 max-h-[calc(100vh-2rem)] w-5/6 max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto overflow-x-hidden rounded-md bg-white p-8"
+      >
+        {children}
+      </div>
+    </Dialog>
   );
 }
