@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Dialog } from "@headlessui/react";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect } from "react";
 
 type ModalProps = {
   focusLastInput?: boolean;
@@ -10,7 +10,18 @@ type ModalProps = {
 export default function ModalBase({ focusLastInput, children }: ModalProps) {
   const navigate = useNavigate();
 
-  const dialogRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useCallback((node: HTMLDivElement | null) => {
+    if (node) {
+      const observer = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          const { width, height } = entry.target.getBoundingClientRect();
+          entry.target.style.setProperty("--margin-left", `${-width / 2}px`);
+          entry.target.style.setProperty("--margin-top", `${-height / 2}px`);
+        }
+      });
+      observer.observe(node);
+    }
+  }, []);
 
   useEffect(() => {
     if (focusLastInput) {
@@ -19,8 +30,8 @@ export default function ModalBase({ focusLastInput, children }: ModalProps) {
       // which would be much simpler, but it only works the first time. I think
       // it's because we never close the modal and just navigate to a different
       // route.
-      dialogRef.current
-        ?.querySelector<HTMLInputElement>("ul > li:last-of-type > input")
+      document
+        .querySelector<HTMLInputElement>("#dialog ul > li:last-of-type > input")
         ?.focus();
     }
   }, [focusLastInput]);
@@ -41,8 +52,11 @@ export default function ModalBase({ focusLastInput, children }: ModalProps) {
         }}
       />
       <div
-        ref={dialogRef}
-        className="fixed left-1/2 top-1/2 max-h-[calc(100vh-2rem)] w-5/6 max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto overflow-x-hidden rounded-md bg-white p-8"
+        id="dialog"
+        ref={(node) => {
+          dialogRef(node);
+        }}
+        className="fixed left-1/2 top-1/2 ml-[var(--margin-left)] mt-[var(--margin-top)] max-h-[calc(100vh-2rem)] w-5/6 max-w-lg overflow-y-auto overflow-x-hidden rounded-md bg-white p-8"
       >
         {children}
       </div>
