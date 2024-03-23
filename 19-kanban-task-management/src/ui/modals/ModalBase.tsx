@@ -14,9 +14,11 @@ export default function ModalBase({ focusLastInput, children }: ModalProps) {
     if (node) {
       const observer = new ResizeObserver((entries) => {
         for (const entry of entries) {
-          const { width, height } = entry.target.getBoundingClientRect();
-          entry.target.style.setProperty("--margin-left", `${-width / 2}px`);
-          entry.target.style.setProperty("--margin-top", `${-height / 2}px`);
+          if (entry.target instanceof HTMLElement) {
+            const { width, height } = entry.target.getBoundingClientRect();
+            entry.target.style.setProperty("--margin-left", `${-width / 2}px`);
+            entry.target.style.setProperty("--margin-top", `${-height / 2}px`);
+          }
         }
       });
       observer.observe(node);
