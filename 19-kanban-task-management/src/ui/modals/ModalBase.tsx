@@ -40,7 +40,7 @@ export default function ModalBase({ focusLastInput, children }: ModalProps) {
       />
       <div
         id="dialog"
-        className="fixed inset-0 m-auto h-fit max-h-[calc(100vh-2rem)] w-5/6 max-w-lg overflow-y-auto overflow-x-hidden rounded-md bg-white p-8"
+        className="fixed inset-0 m-auto h-fit max-h-[calc(100vh-2rem)] w-5/6 max-w-lg overflow-y-auto overflow-x-hidden rounded-md bg-white p-8 dark:bg-neutral-700"
       >
         {children}
       </div>
