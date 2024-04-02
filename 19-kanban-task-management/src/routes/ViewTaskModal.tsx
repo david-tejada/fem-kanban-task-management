@@ -1,6 +1,3 @@
-import { autoUpdate, flip, useFloating } from "@floating-ui/react";
-import { Listbox } from "@headlessui/react";
-import { useCallback } from "react";
 import { Link, Params, useFetcher, useRouteLoaderData } from "react-router-dom";
 import {
   getBoard,
@@ -12,6 +9,7 @@ import { TBoard, TTask } from "../lib/types";
 import { cn } from "../lib/utils";
 import { ButtonMore } from "../ui/ButtonMore";
 import ModalBase from "../ui/modals/ModalBase";
+import ColumnSelect from "../ui/ColumnSelect";
 
 async function loader({ params }: { params: Params<"boardId" | "taskId"> }) {
   const task = await getTask(params.taskId!);
@@ -51,25 +49,6 @@ export default function ViewTaskModal() {
     board: TBoard;
     task: TTask;
   };
-
-  const { refs, floatingStyles } = useFloating({
-    whileElementsMounted: autoUpdate,
-    middleware: [flip()],
-    strategy: "fixed",
-  });
-
-  const selectOptionsRef = useCallback((node: HTMLElement | null) => {
-    if (node) {
-      const selectButton = document.getElementById("selectButton");
-
-      if (selectButton) {
-        node?.style.setProperty(
-          "--select-width",
-          `${selectButton.getBoundingClientRect().width}px`,
-        );
-      }
-    }
-  }, []);
 
   let column = board.columns.find((c) =>
     c.tasks.some((t) => t.id === task.id),
@@ -151,41 +130,13 @@ export default function ViewTaskModal() {
               Current Status
             </h3>
             <div className="relative mt-2 w-[inherit]">
-              <Listbox
-                value={column.id}
-                name="board"
+              <ColumnSelect
+                columns={board.columns}
+                selectedColumn={column}
                 onChange={(columnId) => {
                   fetcher.submit({ columnId: columnId }, { method: "post" });
                 }}
-              >
-                <Listbox.Button
-                  id="selectButton"
-                  ref={refs.setReference}
-                  className="flex w-full items-center justify-between rounded-[0.25rem] border border-neutral-400 px-4 py-2 text-left text-body-lg hover:border-purple-500 ui-open:border-purple-500 dark:text-white"
-                >
-                  {column.name}
-                  <img src="/icon-chevron-down.svg" alt="" />
-                </Listbox.Button>
-                <Listbox.Options
-                  id="selectOptions"
-                  ref={(node) => {
-                    refs.setFloating(node);
-                    selectOptionsRef(node);
-                  }}
-                  style={floatingStyles}
-                  className="z-10 grid w-[var(--select-width)] gap-2 rounded-[0.25rem] bg-white p-4 dark:bg-neutral-700"
-                >
-                  {board.columns.map((column) => (
-                    <Listbox.Option
-                      key={column.id}
-                      value={column.id}
-                      className="w-full cursor-pointer text-body-lg text-neutral-400 ui-active:text-purple-500"
-                    >
-                      {column.name}
-                    </Listbox.Option>
-                  ))}
-                </Listbox.Options>
-              </Listbox>
+              />
             </div>
           </fetcher.Form>
         </article>
