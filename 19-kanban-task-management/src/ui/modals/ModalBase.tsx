@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Dialog } from "@headlessui/react";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 
 type ModalProps = {
   focusLastInput?: boolean;
@@ -9,21 +9,6 @@ type ModalProps = {
 
 export default function ModalBase({ focusLastInput, children }: ModalProps) {
   const navigate = useNavigate();
-
-  const dialogRef = useCallback((node: HTMLDivElement | null) => {
-    if (node) {
-      const observer = new ResizeObserver((entries) => {
-        for (const entry of entries) {
-          if (entry.target instanceof HTMLElement) {
-            const { width, height } = entry.target.getBoundingClientRect();
-            entry.target.style.setProperty("--margin-left", `${-width / 2}px`);
-            entry.target.style.setProperty("--margin-top", `${-height / 2}px`);
-          }
-        }
-      });
-      observer.observe(node);
-    }
-  }, []);
 
   useEffect(() => {
     if (focusLastInput) {
@@ -55,10 +40,7 @@ export default function ModalBase({ focusLastInput, children }: ModalProps) {
       />
       <div
         id="dialog"
-        ref={(node) => {
-          dialogRef(node);
-        }}
-        className="fixed left-1/2 top-1/2 ml-[var(--margin-left)] mt-[var(--margin-top)] max-h-[calc(100vh-2rem)] w-5/6 max-w-lg overflow-y-auto overflow-x-hidden rounded-md bg-white p-8"
+        className="fixed inset-0 m-auto h-fit max-h-[calc(100vh-2rem)] w-5/6 max-w-lg overflow-y-auto overflow-x-hidden rounded-md bg-white p-8"
       >
         {children}
       </div>
