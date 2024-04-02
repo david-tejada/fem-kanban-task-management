@@ -53,9 +53,14 @@ function Column({ column, index }: { column: TColumn; index: number }) {
 
 function Task({ task }: { task: TTask }) {
   return (
-    <div className="rounded-md bg-white px-4 py-6 shadow-task dark:bg-neutral-700">
+    <div className="relative rounded-md bg-white px-4 py-6 shadow-task dark:bg-neutral-700">
       <h3 className="text-heading-md text-neutral-900 hover:text-purple-500 dark:text-white">
-        <Link to={`tasks/${task.id}/view`}>{task.title}</Link>
+        <Link
+          className="before:absolute before:inset-0"
+          to={`tasks/${task.id}/view`}
+        >
+          {task.title}
+        </Link>
       </h3>
       <p className="mt-2 text-body-md text-neutral-400">
         {task.subtasks.filter((s) => s.isCompleted).length} of{" "}
