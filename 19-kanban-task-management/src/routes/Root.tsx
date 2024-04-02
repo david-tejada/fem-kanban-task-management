@@ -46,7 +46,7 @@ export default function Root() {
       />
       <main
         className={cn(
-          "grid h-[calc(100vh-4.0625rem)] overflow-auto transition-all sm:h-[calc(100vh-4.75rem)]",
+          "grid h-[calc(100dvh-4.0625rem)] overflow-auto transition-all sm:h-[calc(100dvh-4.75rem)]",
           isSidebarOpen && "sm:ml-60",
         )}
       >
