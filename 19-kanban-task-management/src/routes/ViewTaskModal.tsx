@@ -1,4 +1,6 @@
+import { autoUpdate, flip, useFloating } from "@floating-ui/react";
 import { Listbox } from "@headlessui/react";
+import { useCallback } from "react";
 import { Link, Params, useFetcher, useRouteLoaderData } from "react-router-dom";
 import {
   getBoard,
@@ -10,8 +12,6 @@ import { TBoard, TTask } from "../lib/types";
 import { cn } from "../lib/utils";
 import { ButtonMore } from "../ui/ButtonMore";
 import ModalBase from "../ui/modals/ModalBase";
-import { autoPlacement, autoUpdate, useFloating } from "@floating-ui/react";
-import { useCallback } from "react";
 
 async function loader({ params }: { params: Params<"boardId" | "taskId"> }) {
   const task = await getTask(params.taskId!);
@@ -54,7 +54,7 @@ export default function ViewTaskModal() {
 
   const { refs, floatingStyles } = useFloating({
     whileElementsMounted: autoUpdate,
-    middleware: [autoPlacement()],
+    middleware: [flip()],
     strategy: "fixed",
   });
 
