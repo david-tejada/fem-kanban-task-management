@@ -179,7 +179,7 @@ export default function ViewTaskModal() {
                     <Listbox.Option
                       key={column.id}
                       value={column.id}
-                      className="w-[inherit] cursor-pointer text-body-lg text-neutral-400 ui-active:text-purple-500"
+                      className="w-full cursor-pointer text-body-lg text-neutral-400 ui-active:text-purple-500"
                     >
                       {column.name}
                     </Listbox.Option>
