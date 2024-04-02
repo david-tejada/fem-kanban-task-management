@@ -77,7 +77,10 @@ export default function TaskModal({
         <Label caption="Subtasks">
           <ul className="grid gap-3">
             {subtasks.map((subtask, i) => (
-              <li key={subtask.id} className="flex items-center gap-4">
+              <li
+                key={subtask.id}
+                className="flex items-center gap-4 transition-transform"
+              >
                 <Input
                   name={`subtask:${subtask.id}`}
                   autofocus={subtask.title === "" && i === subtasks.length - 1}
@@ -88,8 +91,13 @@ export default function TaskModal({
                 />
                 <button
                   type="button"
-                  onClick={() => {
-                    deleteSubtask(subtask.id);
+                  onClick={(event) => {
+                    event.currentTarget.parentElement?.classList.add(
+                      "-translate-x-[150%]",
+                    );
+                    setTimeout(() => {
+                      deleteSubtask(subtask.id);
+                    }, 150);
                   }}
                 >
                   <img src="/icon-cross.svg" alt="" className="max-w-none" />

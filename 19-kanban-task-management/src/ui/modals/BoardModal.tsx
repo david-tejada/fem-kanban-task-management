@@ -61,7 +61,10 @@ export default function BoardModal({
         <Label caption="Board Columns">
           <ul className="grid gap-3">
             {columns.map((column, i) => (
-              <li key={column.id} className="flex items-center gap-4">
+              <li
+                key={column.id}
+                className="flex items-center gap-4 transition-transform"
+              >
                 <Input
                   name={`column:${column.id}`}
                   autofocus={column.name === "" && i === columns.length - 1}
@@ -72,8 +75,13 @@ export default function BoardModal({
                 />
                 <button
                   type="button"
-                  onClick={() => {
-                    deleteColumn(column.id);
+                  onClick={(event) => {
+                    event.currentTarget.parentElement?.classList.add(
+                      "-translate-x-[150%]",
+                    );
+                    setTimeout(() => {
+                      deleteColumn(column.id);
+                    }, 150);
                   }}
                 >
                   <img src="/icon-cross.svg" alt="" className="max-w-none" />
