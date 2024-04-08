@@ -61,6 +61,5 @@ The most important lesson that I have learned doing this challenge is that no ma
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Website - [David Tejada](https://davidtejada.dev/)
+- Frontend Mentor - [@david-tejada](https://www.frontendmentor.io/profile/david-tejada)
